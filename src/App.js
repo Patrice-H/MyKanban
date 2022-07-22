@@ -6,6 +6,8 @@ import Column from './components/Column';
 
 const App = () => {
   const [dashboard, setDashboard] = useState(initialData);
+  const [editedTask, setEditedTask] = useState();
+  const [inputEntry, setInputEntry] = useState('');
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -72,7 +74,14 @@ const App = () => {
 
   return (
     <>
-      <Header dashboard={dashboard} setDashboard={setDashboard} />
+      <Header
+        dashboard={dashboard}
+        editedTask={editedTask}
+        inputEntry={inputEntry}
+        setDashboard={setDashboard}
+        setEditedTask={setEditedTask}
+        setInputEntry={setInputEntry}
+      />
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="dashboard">
           {dashboard.colunmOrder.map((columnId) => {
@@ -81,20 +90,22 @@ const App = () => {
               (taskId) => dashboard.tasks[taskId]
             );
 
-            return <Column key={column.id} column={column} tasks={tasks} />;
+            return (
+              <Column
+                key={column.id}
+                dashboard={dashboard}
+                column={column}
+                tasks={tasks}
+                setDashboard={setDashboard}
+                setEditedTask={setEditedTask}
+                setInputEntry={setInputEntry}
+              />
+            );
           })}
         </div>
       </DragDropContext>
     </>
   );
-
-  /*
-  return dashboard.colunmOrder.map((columnId) => {
-    const column = dashboard.columns[columnId];
-    const tasks = column.taskIds.map((taskId) => dashboard.tasks[taskId]);
-
-    return <Column key={column.id} column={column} tasks={tasks} />;
-  });*/
 };
 
 export default App;
