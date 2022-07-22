@@ -1,5 +1,7 @@
 const Header = (props) => {
   const setDashboard = props.setDashboard;
+  const setEditedTask = props.setEditedTask;
+  const setInputEntry = props.setInputEntry;
 
   const addTask = () => {
     const newTask = document.getElementById('task-input').value;
@@ -38,15 +40,62 @@ const Header = (props) => {
     };
 
     setDashboard(newDashboard);
+    setInputEntry('');
+  };
+
+  const updateTask = (taskId) => {
+    const newTasksList = {
+      ...props.dashboard.tasks,
+      [taskId]: {
+        id: taskId,
+        content: props.inputEntry,
+      },
+    };
+
+    const newDashboard = {
+      ...props.dashboard,
+      tasks: newTasksList,
+    };
+
+    setDashboard(newDashboard);
+    setEditedTask();
+    setInputEntry('');
   };
 
   return (
     <section className="header">
       <h1>Mon Kanban</h1>
       <div className="task-form">
-        <label htmlFor="task-input">Ajouter une tâche</label>
-        <input type="text" id="task-input" />
-        <button onClick={addTask}>Ajouter</button>
+        {props.editedTask === undefined ? (
+          <>
+            <label htmlFor="task-input">Ajouter une tâche</label>
+            <input
+              type="text"
+              id="task-input"
+              value={props.inputEntry}
+              onChange={(e) => setInputEntry(e.target.value)}
+            />
+            <button onClick={addTask}>Ajouter</button>
+          </>
+        ) : (
+          <>
+            <label htmlFor="task-input">Modifier la tâche</label>
+            <input
+              type="text"
+              id="task-input"
+              value={props.inputEntry}
+              onChange={(e) => setInputEntry(e.target.value)}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                updateTask(props.editedTask);
+              }}
+            >
+              Modifier
+            </button>
+          </>
+        )}
       </div>
     </section>
   );
