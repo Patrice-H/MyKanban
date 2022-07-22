@@ -20,7 +20,16 @@ const Column = (props) => {
           >
             {props.tasks &&
               props.tasks.map((task, index) => (
-                <Task key={task.id} task={task} index={index} />
+                <Task
+                  key={task.id}
+                  dashboard={props.dashboard}
+                  setDashboard={props.setDashboard}
+                  setEditedTask={props.setEditedTask}
+                  column={props.column}
+                  task={task}
+                  index={index}
+                  setInputEntry={props.setInputEntry}
+                />
               ))}
             {provided.placeholder}
           </div>
