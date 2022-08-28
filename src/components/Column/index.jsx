@@ -1,5 +1,5 @@
 import { Droppable } from 'react-beautiful-dnd';
-import Task from './Task';
+import Task from '../Task';
 
 const Column = (props) => {
   const tasksListClass = 'tasks-list';
