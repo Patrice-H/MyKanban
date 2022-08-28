@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 
-const Heading1 = () => {
+const MuiHeading1 = () => {
   return (
     <Typography
       variant="h1"
@@ -16,4 +16,4 @@ const Heading1 = () => {
   );
 };
 
-export default Heading1;
+export default MuiHeading1;

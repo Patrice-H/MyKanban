@@ -1,4 +1,4 @@
-import Heading1 from './Heading1';
+import MuiHeading1 from './MuiHeading1';
 
 const Header = (props) => {
   const setDashboard = props.setDashboard;
@@ -66,7 +66,7 @@ const Header = (props) => {
 
   return (
     <section className="header">
-      <Heading1 />
+      <MuiHeading1 />
       <div className="task-form">
         {props.editedTask === undefined ? (
           <>
