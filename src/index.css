@@ -6,10 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.header h1 {
-  font-size: 36px;
-  text-align: center;
-}
 .task-form {
   display: flex;
   justify-content: center;
