@@ -1,3 +1,5 @@
+import Heading1 from './Heading1';
+
 const Header = (props) => {
   const setDashboard = props.setDashboard;
   const setEditedTask = props.setEditedTask;
@@ -64,7 +66,7 @@ const Header = (props) => {
 
   return (
     <section className="header">
-      <h1>Mon Kanban</h1>
+      <Heading1 />
       <div className="task-form">
         {props.editedTask === undefined ? (
           <>
