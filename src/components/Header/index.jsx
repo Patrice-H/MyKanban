@@ -1,16 +1,21 @@
+import { useState } from 'react';
+import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
+import MuiTextField from './MuiTextField';
 
 const Header = (props) => {
+  const [inputError, setInputError] = useState(false);
   const setDashboard = props.setDashboard;
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
 
   const addTask = () => {
-    const newTask = document.getElementById('task-input').value;
+    const newTask = document.getElementById('input-field').value;
     const tasksListCount = Object.keys(props.dashboard.tasks).length;
     const newTaskId = 'task-' + (tasksListCount + 1);
 
     if (newTask === '') {
+      setInputError(true);
       return;
     }
 
@@ -43,9 +48,17 @@ const Header = (props) => {
 
     setDashboard(newDashboard);
     setInputEntry('');
+    setInputError(false);
   };
 
   const updateTask = (taskId) => {
+    const newTask = document.getElementById('input-field').value;
+
+    if (newTask === '') {
+      setInputError(true);
+      return;
+    }
+
     const newTasksList = {
       ...props.dashboard.tasks,
       [taskId]: {
@@ -62,41 +75,46 @@ const Header = (props) => {
     setDashboard(newDashboard);
     setEditedTask();
     setInputEntry('');
+    setInputError(false);
+  };
+
+  const cancelUpdate = () => {
+    const newDashboard = {
+      ...props.dashboard,
+    };
+
+    setDashboard(newDashboard);
+    setEditedTask();
+    setInputEntry('');
+    setInputError(false);
   };
 
   return (
     <section className="header">
       <MuiHeading1 />
       <div className="task-form">
-        {props.editedTask === undefined ? (
-          <>
-            <label htmlFor="task-input">Ajouter une tâche</label>
-            <input
-              type="text"
-              id="task-input"
-              value={props.inputEntry}
-              onChange={(e) => setInputEntry(e.target.value)}
-            />
-            <button onClick={addTask}>Ajouter</button>
-          </>
-        ) : (
-          <>
-            <label htmlFor="task-input">Modifier la tâche</label>
-            <input
-              type="text"
-              id="task-input"
-              value={props.inputEntry}
-              onChange={(e) => setInputEntry(e.target.value)}
-            />
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                updateTask(props.editedTask);
-              }}
-            >
-              Modifier
-            </button>
-          </>
+        <MuiTextField
+          setInputEntry={setInputEntry}
+          setInputError={setInputError}
+          inputValue={props.inputEntry}
+          inputError={inputError}
+          editedTask={props.editedTask}
+        />
+        <MuiButton
+          addTask={addTask}
+          updateTask={updateTask}
+          cancelUpdate={cancelUpdate}
+          editedTask={props.editedTask}
+          label={props.editedTask === undefined ? 'Ajouter' : 'Modifier'}
+        />
+        {props.editedTask === undefined ? null : (
+          <MuiButton
+            addTask={addTask}
+            updateTask={updateTask}
+            cancelUpdate={cancelUpdate}
+            editedTask={props.editedTask}
+            label="Annuler"
+          />
         )}
       </div>
     </section>
