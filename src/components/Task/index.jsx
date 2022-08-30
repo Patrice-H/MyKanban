@@ -1,4 +1,5 @@
 import { Draggable } from 'react-beautiful-dnd';
+import MuiCard from './MuiCard';
 
 const Task = (props) => {
   const setDashboard = props.setDashboard;
@@ -40,24 +41,12 @@ const Task = (props) => {
           ref={provided.innerRef}
           className={snapshot.isDragging ? taskClass + ' dragging' : taskClass}
         >
-          <h3>{props.task.content}</h3>
-          <div className="task-item-btns">
-            <span
-              className="fa-solid fa-pencil"
-              onClick={(e) => {
-                e.preventDefault();
-                setEditedTask(props.task.id);
-                setInputEntry(props.task.content);
-              }}
-            ></span>
-            <span
-              className="fa-solid fa-trash-can"
-              onClick={(e) => {
-                e.preventDefault();
-                deleteTask(props.task.id);
-              }}
-            ></span>
-          </div>
+          <MuiCard
+            task={props.task}
+            setEditedTask={setEditedTask}
+            setInputEntry={setInputEntry}
+            deleteTask={deleteTask}
+          />
         </div>
       )}
     </Draggable>
