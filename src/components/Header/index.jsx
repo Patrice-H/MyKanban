@@ -2,6 +2,7 @@ import { useState } from 'react';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
+import './Header.css';
 
 const Header = (props) => {
   const [inputError, setInputError] = useState(false);
