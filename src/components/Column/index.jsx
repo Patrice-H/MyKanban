@@ -1,11 +1,16 @@
 import { Droppable } from 'react-beautiful-dnd';
+import { Paper } from '@mui/material';
 import Task from '../Task';
+import './Column.css';
 
 const Column = (props) => {
   const tasksListClass = 'tasks-list';
 
   return (
-    <section className="column">
+    <Paper
+      className="column"
+      id={`${props.column.title.replace(/ /g, '-').toLowerCase()}-column`}
+    >
       <h2>{props.column.title}</h2>
       <Droppable droppableId={props.column.id}>
         {(provided, snapshot) => (
@@ -35,7 +40,7 @@ const Column = (props) => {
           </div>
         )}
       </Droppable>
-    </section>
+    </Paper>
   );
 };
 
