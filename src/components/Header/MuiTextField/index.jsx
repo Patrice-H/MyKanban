@@ -1,28 +1,24 @@
 import { TextField } from '@mui/material';
-// essayer useContext pour editedTask
-const MuiTextField = ({
-  setInputEntry,
-  setInputError,
-  inputValue,
-  inputError,
-  editedTask,
-}) => {
+
+const MuiTextField = (props) => {
   const label =
-    editedTask === undefined ? 'Ajouter une tâche' : 'Modifier la tâche';
+    props.editedTask === undefined ? 'Ajouter une tâche' : 'Modifier la tâche';
 
   return (
     <TextField
-      required={editedTask === undefined ? true : false}
+      required={props.editedTask === undefined ? true : false}
       id="input-field"
       label={label}
       variant="outlined"
-      value={inputValue}
+      value={props.inputValue}
       onChange={(e) => {
-        setInputEntry(e.target.value);
-        setInputError(false);
+        props.setInputEntry(e.target.value);
+        props.setInputError(false);
       }}
-      error={!inputValue && inputError}
-      helperText={!inputValue && inputError ? 'Task required' : null}
+      error={!props.inputValue && props.inputError}
+      helperText={
+        !props.inputValue && props.inputError ? 'Task required' : null
+      }
     />
   );
 };

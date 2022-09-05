@@ -9,6 +9,14 @@ const MuiButton = (props) => {
       color={props.label === 'Annuler' ? 'error' : 'primary'}
       onClick={(e) => {
         e.preventDefault();
+        props.doTraitment(
+          props.label === 'Ajouter'
+            ? 'add'
+            : props.label === 'Annuler'
+            ? 'cancel'
+            : 'update',
+          props.editedTask
+        );
         props.editedTask === undefined
           ? props.addTask()
           : props.label === 'Modifier'
