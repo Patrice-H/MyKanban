@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { initialData } from './data/initialData';
 import Header from './components/Header';
 import Column from './components/Column';
+import { GetTasksList } from './services/TaskManager';
 
 const App = () => {
+  const { tasksList } = GetTasksList();
+  let dataLoaded = tasksList !== undefined;
+
   const [dashboard, setDashboard] = useState(initialData);
   const [editedTask, setEditedTask] = useState();
   const [inputEntry, setInputEntry] = useState('');
@@ -72,6 +76,23 @@ const App = () => {
     setDashboard(newDashboard);
   };
 
+  useEffect(() => {
+    const columns = tasksList && {
+      ...initialData.columns,
+      'column-1': {
+        ...initialData.columns['column-1'],
+        taskIds: Object.keys(tasksList),
+      },
+    };
+    const initialDashboard = tasksList && {
+      ...initialData,
+      columns,
+      tasks: tasksList,
+    };
+    setDashboard(initialDashboard);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataLoaded]);
+
   return (
     <>
       <Header
@@ -84,24 +105,24 @@ const App = () => {
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="dashboard">
-          {dashboard.colunmOrder.map((columnId) => {
-            const column = dashboard.columns[columnId];
-            const tasks = column.taskIds.map(
-              (taskId) => dashboard.tasks[taskId]
-            );
-
-            return (
-              <Column
-                key={column.id}
-                dashboard={dashboard}
-                column={column}
-                tasks={tasks}
-                setDashboard={setDashboard}
-                setEditedTask={setEditedTask}
-                setInputEntry={setInputEntry}
-              />
-            );
-          })}
+          {dashboard &&
+            dashboard.colunmOrder.map((columnId) => {
+              const column = dashboard.columns[columnId];
+              const tasks = column.taskIds.map(
+                (taskId) => dashboard.tasks[taskId]
+              );
+              return (
+                <Column
+                  key={column.id}
+                  dashboard={dashboard}
+                  column={column}
+                  tasks={tasks}
+                  setDashboard={setDashboard}
+                  setEditedTask={setEditedTask}
+                  setInputEntry={setInputEntry}
+                />
+              );
+            })}
         </div>
       </DragDropContext>
     </>
