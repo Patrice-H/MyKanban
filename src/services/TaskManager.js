@@ -1,7 +1,8 @@
 import { useFetch } from '../utils/hooks';
+import { apiBaseUrl } from '../utils/config';
 
 export const GetTasksList = () => {
-  const { data, message } = useFetch('http://localhost:3001/api/tasks');
+  const { data, message } = useFetch(`${apiBaseUrl}/api/tasks`);
 
   const convert = (list) => {
     let tasks = {};
