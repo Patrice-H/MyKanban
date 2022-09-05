@@ -6,14 +6,14 @@ const MuiCard = (props) => {
   return (
     <Card>
       <CardContent>
-        <h3 className="task-title">{props.task.content}</h3>
+        <h3 className="task-title">{props.task.title}</h3>
         <div className="task-item-btns">
           <span
             className="fa-solid fa-pencil"
             onClick={(e) => {
               e.preventDefault();
               props.setEditedTask(props.task.id);
-              props.setInputEntry(props.task.content);
+              props.setInputEntry(props.task.title);
             }}
           ></span>
           <span

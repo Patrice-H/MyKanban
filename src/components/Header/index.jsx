@@ -27,7 +27,7 @@ const Header = (props) => {
           ...props.dashboard.tasks,
           [newTaskId]: {
             id: newTaskId,
-            content: newTask,
+            title: newTask,
           },
         };
         const newTaskListIds = Array.from(
@@ -52,7 +52,7 @@ const Header = (props) => {
           ...props.dashboard.tasks,
           [taskId]: {
             id: taskId,
-            content: props.inputEntry,
+            title: props.inputEntry,
           },
         };
         newDashboard = {

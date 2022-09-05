@@ -11,7 +11,7 @@ export const GetTasksList = () => {
         ...tasks,
         [`task-${task.id}`]: {
           id: `task-${task.id}`,
-          content: task.name,
+          title: task.name,
         },
       };
     });
