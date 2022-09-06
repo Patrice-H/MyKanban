@@ -21,8 +21,7 @@ const Header = (props) => {
         return;
       }
       if (action === 'add') {
-        const tasksListCount = Object.keys(props.dashboard.tasks).length;
-        const newTaskId = 'task-' + (tasksListCount + 1);
+        const newTaskId = 'task-' + (props.lastTaskId + 1);
         const newTasksList = {
           ...props.dashboard.tasks,
           [newTaskId]: {
@@ -33,7 +32,7 @@ const Header = (props) => {
         const newTaskListIds = Array.from(
           props.dashboard.columns['column-1'].taskIds
         );
-        newTaskListIds.splice(tasksListCount, 0, newTaskId);
+        newTaskListIds.splice(props.lastTaskId, 0, newTaskId);
         const newColumns = {
           ...props.dashboard.columns,
           'column-1': {
@@ -46,6 +45,8 @@ const Header = (props) => {
           tasks: newTasksList,
           columns: newColumns,
         };
+        const setLastTaskId = props.setLastTaskId;
+        setLastTaskId(props.lastTaskId + 1);
       }
       if (action === 'update') {
         const newTasksList = {

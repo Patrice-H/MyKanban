@@ -4,6 +4,7 @@ import { initialData } from './data/initialData';
 import Header from './components/Header';
 import Column from './components/Column';
 import { GetTasksList } from './services/TaskManager';
+import { convertTasksList } from './utils/functions';
 
 const App = () => {
   const { tasksList } = GetTasksList();
@@ -12,6 +13,7 @@ const App = () => {
   const [dashboard, setDashboard] = useState(initialData);
   const [editedTask, setEditedTask] = useState();
   const [inputEntry, setInputEntry] = useState('');
+  const [lastTaskId, setLastTaskId] = useState();
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -77,18 +79,21 @@ const App = () => {
   };
 
   useEffect(() => {
+    const lastId = tasksList && tasksList[tasksList.length - 1].id;
+    const tasks = tasksList && convertTasksList(tasksList);
     const columns = tasksList && {
       ...initialData.columns,
       'column-1': {
         ...initialData.columns['column-1'],
-        taskIds: Object.keys(tasksList),
+        taskIds: Object.keys(tasks),
       },
     };
     const initialDashboard = tasksList && {
       ...initialData,
       columns,
-      tasks: tasksList,
+      tasks,
     };
+    setLastTaskId(lastId);
     setDashboard(initialDashboard);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataLoaded]);
@@ -99,9 +104,11 @@ const App = () => {
         dashboard={dashboard}
         editedTask={editedTask}
         inputEntry={inputEntry}
+        lastTaskId={lastTaskId}
         setDashboard={setDashboard}
         setEditedTask={setEditedTask}
         setInputEntry={setInputEntry}
+        setLastTaskId={setLastTaskId}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="dashboard">
