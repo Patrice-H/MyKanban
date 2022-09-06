@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createTask } from '../../services/dbManager';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
 import './Header.css';
 
 const Header = (props) => {
+  const [message, setMessage] = useState();
+  const [task, setTask] = useState();
   const [inputError, setInputError] = useState(false);
   const setDashboard = props.setDashboard;
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
+  const setDbList = props.setDbList;
 
   const doTraitment = (action, taskId) => {
     const newTask = document.getElementById('input-field').value;
@@ -21,6 +25,16 @@ const Header = (props) => {
         return;
       }
       if (action === 'add') {
+        const todoList = props.dbList.filter(
+          (task) => task.category === 'to do'
+        );
+        const taskOrder = todoList.length + 1;
+        createTask(newTask, 'to do', taskOrder).then((data) => {
+          setMessage(data.message);
+          setTask(data.data);
+          setDbList([...props.dbList, data.data]);
+        });
+
         const newTaskId = 'task-' + (props.lastTaskId + 1);
         const newTasksList = {
           ...props.dashboard.tasks,
@@ -68,6 +82,11 @@ const Header = (props) => {
     setInputEntry('');
     setInputError(false);
   };
+
+  useEffect(() => {
+    message && console.log(message);
+    task && console.log(task);
+  }, [message, task]);
 
   return (
     <section className="header">

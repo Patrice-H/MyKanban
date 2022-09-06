@@ -3,17 +3,17 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { initialData } from './data/initialData';
 import Header from './components/Header';
 import Column from './components/Column';
-import { GetTasksList } from './services/dbManager';
+import { getTasksList } from './services/dbManager';
 import { convertTasksList } from './utils/functions';
 
 const App = () => {
-  const { tasksList } = GetTasksList();
-  let dataLoaded = tasksList !== undefined;
-
   const [dashboard, setDashboard] = useState(initialData);
   const [editedTask, setEditedTask] = useState();
   const [inputEntry, setInputEntry] = useState('');
+  const [dbList, setDbList] = useState();
   const [lastTaskId, setLastTaskId] = useState();
+
+  let dataLoaded = dbList !== undefined;
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -79,22 +79,28 @@ const App = () => {
   };
 
   useEffect(() => {
-    const lastId = tasksList && tasksList[tasksList.length - 1].id;
-    const tasks = tasksList && convertTasksList(tasksList);
-    const columns = tasksList && {
+    if (dataLoaded === false) {
+      getTasksList().then((data) => {
+        setDbList(data.data);
+      });
+    }
+
+    const lastId = dbList && dbList[dbList.length - 1].id;
+    const tasks = dbList && convertTasksList(dbList);
+    const columns = dbList && {
       ...initialData.columns,
       'column-1': {
         ...initialData.columns['column-1'],
         taskIds: Object.keys(tasks),
       },
     };
-    const initialDashboard = tasksList && {
+    const initialDashboard = dbList && {
       ...initialData,
       columns,
       tasks,
     };
-    setLastTaskId(lastId);
-    setDashboard(initialDashboard);
+    dbList && setLastTaskId(lastId);
+    dbList && setDashboard(initialDashboard);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataLoaded]);
 
@@ -105,10 +111,12 @@ const App = () => {
         editedTask={editedTask}
         inputEntry={inputEntry}
         lastTaskId={lastTaskId}
+        dbList={dbList}
         setDashboard={setDashboard}
         setEditedTask={setEditedTask}
         setInputEntry={setInputEntry}
         setLastTaskId={setLastTaskId}
+        setDbList={setDbList}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="dashboard">
