@@ -2,6 +2,8 @@ import { Button } from '@mui/material';
 import './MuiButton.css';
 
 const MuiButton = (props) => {
+  const doTraitment = props.doTraitment;
+
   return (
     <Button
       id={`${props.label.toLowerCase()}-btn`}
@@ -9,7 +11,7 @@ const MuiButton = (props) => {
       color={props.label === 'Annuler' ? 'error' : 'primary'}
       onClick={(e) => {
         e.preventDefault();
-        props.doTraitment(
+        doTraitment(
           props.label === 'Ajouter'
             ? 'add'
             : props.label === 'Annuler'
@@ -17,11 +19,6 @@ const MuiButton = (props) => {
             : 'update',
           props.editedTask
         );
-        props.editedTask === undefined
-          ? props.addTask()
-          : props.label === 'Modifier'
-          ? props.updateTask(props.editedTask)
-          : props.cancelUpdate();
       }}
     >
       {props.label}
