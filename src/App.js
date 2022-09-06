@@ -3,7 +3,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { initialData } from './data/initialData';
 import Header from './components/Header';
 import Column from './components/Column';
-import { GetTasksList } from './services/TaskManager';
+import { GetTasksList } from './services/dbManager';
 import { convertTasksList } from './utils/functions';
 
 const App = () => {
