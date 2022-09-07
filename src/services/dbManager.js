@@ -24,3 +24,22 @@ export const createTask = async (title, category, order) => {
     return response.json();
   });
 };
+
+export const updateTask = async (id, title, category, order) => {
+  const updatedTask = {
+    name: title,
+    category: category,
+    order: order,
+  };
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedTask),
+  };
+
+  return fetch(`${apiBaseUrl}/api/task/${id}`, options).then((response) => {
+    return response.json();
+  });
+};
