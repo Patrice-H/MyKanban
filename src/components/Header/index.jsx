@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { createTask } from '../../services/dbManager';
+import { createTask, updateTask } from '../../services/dbManager';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
@@ -15,12 +15,12 @@ const Header = (props) => {
   const setDbList = props.setDbList;
 
   const doTraitment = (action, taskId) => {
-    const newTask = document.getElementById('input-field').value;
+    const taskTitle = document.getElementById('input-field').value;
     let newDashboard;
     if (action === 'cancel') {
       newDashboard = { ...props.dashboard };
     } else {
-      if (newTask === '') {
+      if (taskTitle === '') {
         setInputError(true);
         return;
       }
@@ -29,7 +29,7 @@ const Header = (props) => {
           (task) => task.category === 'to do'
         );
         const taskOrder = todoList.length + 1;
-        createTask(newTask, 'to do', taskOrder).then((data) => {
+        createTask(taskTitle, 'to do', taskOrder).then((data) => {
           setMessage(data.message);
           setTask(data.data);
           setDbList([...props.dbList, data.data]);
@@ -40,7 +40,7 @@ const Header = (props) => {
           ...props.dashboard.tasks,
           [newTaskId]: {
             id: newTaskId,
-            title: newTask,
+            title: taskTitle,
           },
         };
         const newTaskListIds = Array.from(
@@ -63,6 +63,15 @@ const Header = (props) => {
         setLastTaskId(props.lastTaskId + 1);
       }
       if (action === 'update') {
+        const id = parseInt(taskId.split('task-')[1]);
+        const task = props.dbList.find((task) => task.id === id);
+        const newList = props.dbList.filter((task) => task.id !== id);
+        updateTask(id, taskTitle, task.category, task.order).then((data) => {
+          setMessage(data.message);
+          setTask(data.data);
+          setDbList([...newList, data.data]);
+        });
+
         const newTasksList = {
           ...props.dashboard.tasks,
           [taskId]: {
