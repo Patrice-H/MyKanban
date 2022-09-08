@@ -43,3 +43,15 @@ export const updateTask = async (id, title, category, order) => {
     return response.json();
   });
 };
+
+export const removeTask = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  return fetch(`${apiBaseUrl}/api/task/${id}`, options).then((response) => {
+    return response.json();
+  });
+};
