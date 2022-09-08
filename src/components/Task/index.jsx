@@ -1,10 +1,12 @@
 import { Draggable } from 'react-beautiful-dnd';
+import { removeTask } from '../../services/dbManager';
 import MuiCard from './MuiCard';
 
 const Task = (props) => {
   const setDashboard = props.setDashboard;
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
+  const setDbList = props.setDbList;
   const taskClass = 'task-item';
 
   const deleteTask = (taskId) => {
@@ -28,7 +30,14 @@ const Task = (props) => {
       tasks: newTasksList,
       columns: newColumns,
     };
+    const deletedId = parseInt(taskId.split('task-')[1]);
+    const newList = props.dbList.filter((task) => task.id !== deletedId);
 
+    removeTask(deletedId).then((data) => {
+      console.log(data.message);
+      console.log(data.data);
+      setDbList(newList);
+    });
     setDashboard(newDashboard);
   };
 
