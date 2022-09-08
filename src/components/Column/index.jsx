@@ -32,8 +32,10 @@ const Column = (props) => {
                   setEditedTask={props.setEditedTask}
                   column={props.column}
                   task={task}
+                  dbList={props.dbList}
                   index={index}
                   setInputEntry={props.setInputEntry}
+                  setDbList={props.setDbList}
                 />
               ))}
             {provided.placeholder}

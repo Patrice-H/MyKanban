@@ -176,9 +176,11 @@ const App = () => {
                   dashboard={dashboard}
                   column={column}
                   tasks={tasks}
+                  dbList={dbList}
                   setDashboard={setDashboard}
                   setEditedTask={setEditedTask}
                   setInputEntry={setInputEntry}
+                  setDbList={setDbList}
                 />
               );
             })}
