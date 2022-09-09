@@ -1,5 +1,6 @@
 export const convertTasksList = (list) => {
   let tasks = {};
+  list.sort((a, b) => a.order - b.order);
   list.forEach((task) => {
     tasks = {
       ...tasks,
