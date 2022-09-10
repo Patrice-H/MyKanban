@@ -1,5 +1,6 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CustomizedMenus from '../CustomizedMenus';
 import './MuiCard.css';
 
 const MuiCard = (props) => {
@@ -7,23 +8,12 @@ const MuiCard = (props) => {
     <Card>
       <CardContent>
         <h3 className="task-title">{props.task.title}</h3>
-        <div className="task-item-btns">
-          <span
-            className="fa-solid fa-pencil"
-            onClick={(e) => {
-              e.preventDefault();
-              props.setEditedTask(props.task.id);
-              props.setInputEntry(props.task.title);
-            }}
-          ></span>
-          <span
-            className="fa-solid fa-trash-can"
-            onClick={(e) => {
-              e.preventDefault();
-              props.deleteTask(props.task.id);
-            }}
-          ></span>
-        </div>
+        <CustomizedMenus
+          task={props.task}
+          setEditedTask={props.setEditedTask}
+          setInputEntry={props.setInputEntry}
+          deleteTask={props.deleteTask}
+        />
       </CardContent>
     </Card>
   );
