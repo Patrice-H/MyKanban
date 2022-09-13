@@ -1,12 +1,14 @@
 import { Draggable } from 'react-beautiful-dnd';
-import { removeTask } from '../../services/dbManager';
+import { removeTask, updateTask } from '../../services/dbManager';
+import { getColumnName } from '../../utils/functions';
 import MuiCard from './MuiCard';
 
 const Task = (props) => {
   const setDashboard = props.setDashboard;
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
-  const setDbList = props.setDbList;
+  const setMessage = props.setMessage;
+  const setIsSnackbarOpen = props.setIsSnackbarOpen;
   const taskClass = 'task-item';
 
   const deleteTask = (taskId) => {
@@ -30,14 +32,22 @@ const Task = (props) => {
       tasks: newTasksList,
       columns: newColumns,
     };
-    const deletedId = parseInt(taskId.split('task-')[1]);
-    const newList = props.dbList.filter((task) => task.id !== deletedId);
 
-    removeTask(deletedId).then((data) => {
-      console.log(data.message);
-      console.log(data.data);
-      setDbList(newList);
+    removeTask(parseInt(taskId.split('task-')[1])).then((data) => {
+      setMessage(data.message);
+      setIsSnackbarOpen(true);
     });
+
+    for (let i = 0; i < newTaskListIds.length; i++) {
+      if (newTaskListIds[i] !== props.column.taskIds[i]) {
+        const id = parseInt(newTaskListIds[i].split('task-')[1]);
+        const title = props.dashboard.tasks[newTaskListIds[i]].title;
+        const category = getColumnName(props.column.id);
+        const order = i + 1;
+        updateTask(id, title, category, order);
+      }
+    }
+
     setDashboard(newDashboard);
   };
 

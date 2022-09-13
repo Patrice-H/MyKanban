@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { createTask, updateTask } from '../../services/dbManager';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
@@ -6,13 +7,12 @@ import MuiTextField from './MuiTextField';
 import './Header.css';
 
 const Header = (props) => {
-  const [message, setMessage] = useState();
-  const [task, setTask] = useState();
   const [inputError, setInputError] = useState(false);
   const setDashboard = props.setDashboard;
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
-  const setDbList = props.setDbList;
+  const setMessage = props.setMessage;
+  const setIsSnackbarOpen = props.setIsSnackbarOpen;
 
   const doTraitment = (action, taskId) => {
     const taskTitle = document.getElementById('input-field').value;
@@ -25,14 +25,11 @@ const Header = (props) => {
         return;
       }
       if (action === 'add') {
-        const todoList = props.dbList.filter(
-          (task) => task.category === 'to do'
-        );
-        const taskOrder = todoList.length + 1;
+        const taskOrder =
+          props.dashboard.columns['column-1'].taskIds.length + 1;
         createTask(taskTitle, 'to do', taskOrder).then((data) => {
           setMessage(data.message);
-          setTask(data.data);
-          setDbList([...props.dbList, data.data]);
+          setIsSnackbarOpen(true);
         });
 
         const newTaskId = 'task-' + (props.lastTaskId + 1);
@@ -65,11 +62,9 @@ const Header = (props) => {
       if (action === 'update') {
         const id = parseInt(taskId.split('task-')[1]);
         const task = props.dbList.find((task) => task.id === id);
-        const newList = props.dbList.filter((task) => task.id !== id);
+        //const newList = props.dbList.filter((task) => task.id !== id);
         updateTask(id, taskTitle, task.category, task.order).then((data) => {
           setMessage(data.message);
-          setTask(data.data);
-          setDbList([...newList, data.data]);
         });
 
         const newTasksList = {
@@ -91,11 +86,6 @@ const Header = (props) => {
     setInputEntry('');
     setInputError(false);
   };
-
-  useEffect(() => {
-    message && console.log(message);
-    task && console.log(task);
-  }, [message, task]);
 
   return (
     <section className="header">
