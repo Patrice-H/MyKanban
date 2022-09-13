@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { updateTask } from './services/dbManager';
 import { initialData } from './data/initialData';
+import Snackbar from '@mui/material/Snackbar';
+import { IconButton } from '@mui/material';
 import Header from './components/Header';
 import Column from './components/Column';
 import { getTasksList } from './services/dbManager';
@@ -13,11 +15,20 @@ const App = () => {
   const [inputEntry, setInputEntry] = useState('');
   const [dbList, setDbList] = useState();
   const [lastTaskId, setLastTaskId] = useState();
+  const [message, setMessage] = useState();
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
   let dataLoaded = dbList !== undefined;
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
+    const getOrder = (list, task) => {
+      for (let i = 0; i < list.length; i++) {
+        if (list[i] === task) {
+          return i + 1;
+        }
+      }
+    };
 
     if (!destination) {
       return;
@@ -52,12 +63,11 @@ const App = () => {
       for (let i = 0; i < start.taskIds.length; i++) {
         if (newTaskIds[i] !== start.taskIds[i]) {
           const id = parseInt(newTaskIds[i].split('task-')[1]);
-          const title = dbList.find((task) => task.id === id).name;
+          const title = dashboard.tasks[newTaskIds[i]].title;
           const category = getColumnName(start.id);
           const order = i + 1;
-          const newList = dbList.filter((task) => task.id !== id);
           updateTask(id, title, category, order).then((data) => {
-            setDbList([...newList, data.data]);
+            setMessage(data.message);
           });
         }
       }
@@ -89,50 +99,55 @@ const App = () => {
       },
     };
 
-    const startSrc = start.taskIds;
-    const startDest = finish.taskIds;
-    const finishSrc = startTaskIds;
-    const finishDest = finishTaskIds;
-
-    if (startDest.length === 0) {
+    if (finish.taskIds.length === 0) {
       const id = parseInt(draggableId.split('task-')[1]);
-      const title = dbList.find((task) => task.id === id).name;
+      const title = dashboard.tasks[draggableId].title;
       const category = getColumnName(finish.id);
       const order = destination.index + 1;
-      const newList = dbList.filter((task) => task.id !== id);
       updateTask(id, title, category, order).then((data) => {
-        setDbList([...newList, data.data]);
+        setMessage(data.message);
       });
     }
 
-    for (let i = 0; i < finishSrc.length; i++) {
-      if (finishSrc[i] !== startSrc[i]) {
-        const id = parseInt(finishSrc[i].split('task-')[1]);
-        const title = dbList.find((task) => task.id === id).name;
+    for (let i = 0; i < startTaskIds.length; i++) {
+      if (startTaskIds[i] !== start.taskIds[i]) {
+        const id = parseInt(startTaskIds[i].split('task-')[1]);
+        const title = dashboard.tasks[startTaskIds[i]].title;
         const category = getColumnName(start.id);
         const order = i + 1;
-        const newList = dbList.filter((task) => task.id !== id);
         updateTask(id, title, category, order).then((data) => {
-          setDbList([...newList, data.data]);
+          setMessage(data.message);
         });
       }
     }
 
-    for (let i = 0; i < finishDest.length; i++) {
-      if (startDest.length > 0 && finishDest[i] !== startDest[i]) {
-        const id = parseInt(finishDest[i].split('task-')[1]);
-        const title = dbList.find((task) => task.id === id).name;
+    for (let i = 0; i < finishTaskIds.length; i++) {
+      if (finish.taskIds.length > 0 && finishTaskIds[i] !== finish.taskIds[i]) {
+        const id = parseInt(finishTaskIds[i].split('task-')[1]);
+        const title = dashboard.tasks[finishTaskIds[i]].title;
         const category = getColumnName(finish.id);
-        const order = i + 1;
-        const newList = dbList.filter((task) => task.id !== id);
+        const order = getOrder(finishTaskIds, finishTaskIds[i]);
         updateTask(id, title, category, order).then((data) => {
-          setDbList([...newList, data.data]);
+          setMessage(data.message);
         });
       }
     }
 
     setDashboard(newDashboard);
   };
+
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={() => setIsSnackbarOpen(false)}
+      >
+        X
+      </IconButton>
+    </>
+  );
 
   useEffect(() => {
     if (dataLoaded === false) {
@@ -155,12 +170,13 @@ const App = () => {
         editedTask={editedTask}
         inputEntry={inputEntry}
         lastTaskId={lastTaskId}
-        dbList={dbList}
+        message={message}
         setDashboard={setDashboard}
         setEditedTask={setEditedTask}
         setInputEntry={setInputEntry}
         setLastTaskId={setLastTaskId}
-        setDbList={setDbList}
+        setMessage={setMessage}
+        setIsSnackbarOpen={setIsSnackbarOpen}
       />
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="dashboard">
@@ -176,16 +192,24 @@ const App = () => {
                   dashboard={dashboard}
                   column={column}
                   tasks={tasks}
-                  dbList={dbList}
                   setDashboard={setDashboard}
                   setEditedTask={setEditedTask}
                   setInputEntry={setInputEntry}
-                  setDbList={setDbList}
+                  setMessage={setMessage}
+                  setIsSnackbarOpen={setIsSnackbarOpen}
                 />
               );
             })}
         </div>
       </DragDropContext>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={isSnackbarOpen}
+        onClose={() => setIsSnackbarOpen(false)}
+        autoHideDuration={2000}
+        message={message}
+        action={action}
+      />
     </>
   );
 };
