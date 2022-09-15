@@ -1,11 +1,10 @@
-//import { useState, useEffect } from 'react';
 import { useState } from 'react';
 import { createTask, updateTask } from '../../services/dbManager';
+import { getColumnName } from '../../utils/functions';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
 import './Header.css';
-import { getColumnName } from '../../utils/functions';
 
 const Header = (props) => {
   const [inputError, setInputError] = useState(false);
