@@ -64,7 +64,9 @@ export default function CustomizedMenus(props) {
   };
   const deleteCard = () => {
     handleClose();
-    deleteTask(props.task.id);
+    if (window.confirm('Voulez vous réellement supprimer cette tâche ?')) {
+      deleteTask(props.task.id);
+    }
   };
   const renameCard = () => {
     handleClose();
