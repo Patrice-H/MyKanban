@@ -5,6 +5,7 @@ import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
 import './Header.css';
+import { getColumnName } from '../../utils/functions';
 
 const Header = (props) => {
   const [inputError, setInputError] = useState(false);
@@ -60,11 +61,21 @@ const Header = (props) => {
         setLastTaskId(props.lastTaskId + 1);
       }
       if (action === 'update') {
+        let columnName;
         const id = parseInt(taskId.split('task-')[1]);
-        const task = props.dbList.find((task) => task.id === id);
-        //const newList = props.dbList.filter((task) => task.id !== id);
-        updateTask(id, taskTitle, task.category, task.order).then((data) => {
+        const title = props.inputEntry;
+        const columns = Object.getOwnPropertyNames(props.dashboard.columns);
+        columns.forEach((column) => {
+          if (props.dashboard.columns[column].taskIds.includes(taskId)) {
+            columnName = column;
+          }
+        });
+        const category = getColumnName(columnName);
+        const order =
+          props.dashboard.columns[columnName].taskIds.indexOf(taskId) + 1;
+        updateTask(id, title, category, order).then((data) => {
           setMessage(data.message);
+          setIsSnackbarOpen(true);
         });
 
         const newTasksList = {
