@@ -27,7 +27,7 @@ const Header = (props) => {
       if (action === 'add') {
         const taskOrder =
           props.dashboard.columns['column-1'].taskIds.length + 1;
-        createTask(taskTitle, 'to do', taskOrder).then((data) => {
+        createTask(taskTitle, 'A faire', taskOrder).then((data) => {
           setMessage(data.message);
           setIsSnackbarOpen(true);
         });

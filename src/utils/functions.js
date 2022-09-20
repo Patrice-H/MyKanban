@@ -17,11 +17,11 @@ export const convertTasksList = (list) => {
 export const getColumnName = (column) => {
   switch (column) {
     case 'column-1':
-      return 'to do';
+      return 'A faire';
     case 'column-2':
-      return 'in progress';
+      return 'En cours';
     case 'column-3':
-      return 'done';
+      return 'Fait';
     default:
       break;
   }
@@ -30,13 +30,13 @@ export const getColumnName = (column) => {
 export const getInitialDashboard = (dbList, initialData) => {
   const tasks = convertTasksList(dbList);
   const taskIds1 = convertTasksList(
-    dbList.filter((item) => item.category === 'to do')
+    dbList.filter((item) => item.category === 'A faire')
   );
   const taskIds2 = convertTasksList(
-    dbList.filter((item) => item.category === 'in progress')
+    dbList.filter((item) => item.category === 'En cours')
   );
   const taskIds3 = convertTasksList(
-    dbList.filter((item) => item.category === 'done')
+    dbList.filter((item) => item.category === 'Fait')
   );
   const columns = {
     ...initialData.columns,
