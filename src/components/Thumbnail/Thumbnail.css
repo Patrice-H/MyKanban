@@ -1,0 +1,29 @@
+.thumbnail {
+  display: block;
+  width: 600px;
+  height: 250px;
+  border: solid 1px black;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.thumbnail iframe {
+  border: none;
+  z-index: 1;
+  -ms-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+
+  -ms-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.mask {
+  width: 600px;
+  height: 250px;
+  position: absolute;
+  z-index: 2;
+}
