@@ -6,7 +6,7 @@ export const convertTasksList = (list) => {
       ...tasks,
       [`task-${task.id}`]: {
         id: `task-${task.id}`,
-        title: task.name,
+        title: task.title,
       },
     };
   });

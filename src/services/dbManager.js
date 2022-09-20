@@ -8,9 +8,9 @@ export const getTasksList = async () => {
 
 export const createTask = async (title, category, order) => {
   const newTask = {
-    name: title,
-    category: category,
-    order: order,
+    title,
+    category,
+    order,
   };
   const options = {
     method: 'POST',
@@ -27,9 +27,9 @@ export const createTask = async (title, category, order) => {
 
 export const updateTask = async (id, title, category, order) => {
   const updatedTask = {
-    name: title,
-    category: category,
-    order: order,
+    title,
+    category,
+    order,
   };
   const options = {
     method: 'PUT',
