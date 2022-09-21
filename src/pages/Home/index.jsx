@@ -5,7 +5,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Tableau de bord</h1>
+      <h1 className="main-title">Tableaux de bord</h1>
       {pages.map((page) => (
         <Thumbnail key={`thumbnail-${page}`} pageId={page} />
       ))}
