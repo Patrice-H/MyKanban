@@ -31,6 +31,7 @@ const Column = (props) => {
                   setDashboard={props.setDashboard}
                   setEditedTask={props.setEditedTask}
                   column={props.column}
+                  categories={props.categories}
                   task={task}
                   index={index}
                   setInputEntry={props.setInputEntry}

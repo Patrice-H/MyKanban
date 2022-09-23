@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createTask, updateTask } from '../../services/dbManager';
-import { getColumnName } from '../../utils/functions';
+import { getCategoryId } from '../../utils/functions';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
@@ -14,7 +14,7 @@ const Header = (props) => {
   const setMessage = props.setMessage;
   const setIsSnackbarOpen = props.setIsSnackbarOpen;
 
-  const doTraitment = (action, taskId) => {
+  const doTraitment = async (action, taskId) => {
     const taskTitle = document.getElementById('input-field').value;
     let newDashboard;
     if (action === 'cancel') {
@@ -25,14 +25,21 @@ const Header = (props) => {
         return;
       }
       if (action === 'add') {
+        let lastId;
         const taskOrder =
           props.dashboard.columns['column-1'].taskIds.length + 1;
-        createTask(taskTitle, 'A faire', taskOrder).then((data) => {
+        await createTask(
+          taskTitle,
+          taskOrder,
+          props.categories[0].id,
+          props.dashboardId
+        ).then((data) => {
+          lastId = data.data.id;
           setMessage(data.message);
           setIsSnackbarOpen(true);
         });
 
-        const newTaskId = 'task-' + (props.lastTaskId + 1);
+        const newTaskId = 'task-' + lastId;
         const newTasksList = {
           ...props.dashboard.tasks,
           [newTaskId]: {
@@ -43,7 +50,7 @@ const Header = (props) => {
         const newTaskListIds = Array.from(
           props.dashboard.columns['column-1'].taskIds
         );
-        newTaskListIds.splice(props.lastTaskId, 0, newTaskId);
+        newTaskListIds.splice(lastId - 1, 0, newTaskId);
         const newColumns = {
           ...props.dashboard.columns,
           'column-1': {
@@ -56,8 +63,6 @@ const Header = (props) => {
           tasks: newTasksList,
           columns: newColumns,
         };
-        const setLastTaskId = props.setLastTaskId;
-        setLastTaskId(props.lastTaskId + 1);
       }
       if (action === 'update') {
         let columnName;
@@ -69,13 +74,15 @@ const Header = (props) => {
             columnName = column;
           }
         });
-        const category = getColumnName(columnName);
+        const categoryId = getCategoryId(columnName, props.categories);
         const order =
           props.dashboard.columns[columnName].taskIds.indexOf(taskId) + 1;
-        updateTask(id, title, category, order).then((data) => {
-          setMessage(data.message);
-          setIsSnackbarOpen(true);
-        });
+        updateTask(id, title, order, categoryId, props.dashboardId).then(
+          (data) => {
+            setMessage(data.message);
+            setIsSnackbarOpen(true);
+          }
+        );
 
         const newTasksList = {
           ...props.dashboard.tasks,

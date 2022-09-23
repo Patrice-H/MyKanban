@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 import { removeTask, updateTask } from '../../services/dbManager';
-import { getColumnName } from '../../utils/functions';
+import { getCategoryId } from '../../utils/functions';
 import MuiCard from './MuiCard';
 
 const Task = (props) => {
@@ -42,9 +42,9 @@ const Task = (props) => {
       if (newTaskListIds[i] !== props.column.taskIds[i]) {
         const id = parseInt(newTaskListIds[i].split('task-')[1]);
         const title = props.dashboard.tasks[newTaskListIds[i]].title;
-        const category = getColumnName(props.column.id);
+        const categoryId = getCategoryId(props.column.id, props.categories);
         const order = i + 1;
-        updateTask(id, title, category, order);
+        updateTask(id, title, order, categoryId, props.dashboardId);
       }
     }
 
