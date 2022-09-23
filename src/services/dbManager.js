@@ -6,11 +6,12 @@ export const getTasksList = async () => {
   });
 };
 
-export const createTask = async (title, category, order) => {
+export const createTask = async (title, order, category_id, dashboard_id) => {
   const newTask = {
     title,
-    category,
     order,
+    category_id,
+    dashboard_id,
   };
   const options = {
     method: 'POST',
@@ -25,11 +26,18 @@ export const createTask = async (title, category, order) => {
   });
 };
 
-export const updateTask = async (id, title, category, order) => {
+export const updateTask = async (
+  id,
+  title,
+  order,
+  category_id,
+  dashboard_id
+) => {
   const updatedTask = {
     title,
-    category,
     order,
+    category_id,
+    dashboard_id,
   };
   const options = {
     method: 'PUT',
@@ -52,6 +60,12 @@ export const removeTask = async (id) => {
     },
   };
   return fetch(`${apiBaseUrl}/api/task/${id}`, options).then((response) => {
+    return response.json();
+  });
+};
+
+export const getCategoriesList = async () => {
+  return fetch(`${apiBaseUrl}/api/categories`).then((response) => {
     return response.json();
   });
 };
