@@ -106,7 +106,7 @@ const Header = (props) => {
 
   return (
     <section className="header">
-      <MuiHeading1 />
+      <MuiHeading1 dashboardId={props.dashboardId} />
       <div className="task-form">
         <MuiTextField
           setInputEntry={setInputEntry}

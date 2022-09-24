@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
+import { getDashboard } from '../../../services/dbManager';
 
-const MuiHeading1 = () => {
+const MuiHeading1 = (props) => {
+  const [dashboardTitle, setDashboardTitle] = useState();
+  useEffect(() => {
+    getDashboard(props.dashboardId).then((data) => {
+      setDashboardTitle(data.data.title);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Typography
       variant="h1"
@@ -11,7 +21,7 @@ const MuiHeading1 = () => {
         margin: '20px',
       }}
     >
-      Mon Kanban
+      {dashboardTitle && dashboardTitle}
     </Typography>
   );
 };
