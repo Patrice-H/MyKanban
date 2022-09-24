@@ -69,3 +69,9 @@ export const getCategoriesList = async () => {
     return response.json();
   });
 };
+
+export const getDashboard = async (id) => {
+  return fetch(`${apiBaseUrl}/api/dashboard/${id}`).then((response) => {
+    return response.json();
+  });
+};
