@@ -14,7 +14,7 @@ import Column from '../../components/Column';
 import { getCategoryId, getInitialDashboard } from '../../utils/functions';
 
 const Dashboard = () => {
-  const [dashboard, setDashboard] = useState(initialData);
+  const [dashboard, setDashboard] = useState();
   const [editedTask, setEditedTask] = useState();
   const [inputEntry, setInputEntry] = useState('');
   const [dbList, setDbList] = useState();
@@ -197,7 +197,7 @@ const Dashboard = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="dashboard">
           {dashboard &&
-            dashboard.colunmOrder.map((columnId) => {
+            dashboard.columnOrder.map((columnId) => {
               const column = dashboard.columns[columnId];
               const tasks = column.taskIds.map(
                 (taskId) => dashboard.tasks[taskId]
