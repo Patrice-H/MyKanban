@@ -27,6 +27,7 @@ const convertColumnsList = (columnsList, tasksList) => {
       id: columnName,
       title: columnsList[i].title,
       taskIds: taskIds,
+      backgroundColor: columnsList[i].background_color,
     };
   }
 

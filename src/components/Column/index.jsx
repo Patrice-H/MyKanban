@@ -9,7 +9,7 @@ const Column = (props) => {
   return (
     <Paper
       className="column"
-      id={`${props.column.title.replace(/ /g, '-').toLowerCase()}-column`}
+      style={{ backgroundColor: props.column.backgroundColor }}
     >
       <h2>{props.column.title}</h2>
       <Droppable droppableId={props.column.id}>
