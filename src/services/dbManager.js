@@ -70,6 +70,12 @@ export const getCategoriesList = async () => {
   });
 };
 
+export const getDashboardsList = async () => {
+  return fetch(`${apiBaseUrl}/api/dashboards`).then((response) => {
+    return response.json();
+  });
+};
+
 export const getDashboard = async (id) => {
   return fetch(`${apiBaseUrl}/api/dashboard/${id}`).then((response) => {
     return response.json();
