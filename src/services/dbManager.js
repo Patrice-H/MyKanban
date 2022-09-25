@@ -81,3 +81,20 @@ export const getDashboard = async (id) => {
     return response.json();
   });
 };
+
+export const createDashboard = async (title) => {
+  const newDashboard = {
+    title,
+  };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newDashboard),
+  };
+
+  return fetch(`${apiBaseUrl}/api/dashboards`, options).then((response) => {
+    return response.json();
+  });
+};
