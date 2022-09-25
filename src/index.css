@@ -13,7 +13,8 @@ body {
 }
 .dashboard {
   display: flex;
-  justify-content: space-evenly;
+  gap: 25px;
+  padding: 0 25px;
   margin-top: 180px;
   position: relative;
 }
