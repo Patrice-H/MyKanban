@@ -70,6 +70,31 @@ export const getCategoriesList = async () => {
   });
 };
 
+export const createCategory = async (
+  title,
+  order,
+  background_color,
+  dashboard_id
+) => {
+  const newCategory = {
+    title,
+    order,
+    background_color,
+    dashboard_id,
+  };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newCategory),
+  };
+
+  return fetch(`${apiBaseUrl}/api/categories`, options).then((response) => {
+    return response.json();
+  });
+};
+
 export const getDashboardsList = async () => {
   return fetch(`${apiBaseUrl}/api/dashboards`).then((response) => {
     return response.json();
