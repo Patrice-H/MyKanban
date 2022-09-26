@@ -69,3 +69,8 @@ export const closeDashboardModal = () => {
   const modal = document.getElementById('dashboard-modal');
   modal.classList.add('hidden');
 };
+
+export const openDashboardModal = () => {
+  const modal = document.getElementById('dashboard-modal');
+  modal.classList.remove('hidden');
+};
