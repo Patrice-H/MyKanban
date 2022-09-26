@@ -64,3 +64,8 @@ export const getInitialDashboard = (categories, dbList, initialData) => {
     columnOrder,
   };
 };
+
+export const closeDashboardModal = () => {
+  const modal = document.getElementById('dashboard-modal');
+  modal.classList.add('hidden');
+};
