@@ -14,20 +14,20 @@ const convertTasksList = (list) => {
   return tasks;
 };
 
-const convertColumnsList = (columnsList, tasksList) => {
+const convertColumnsList = (list) => {
   let columns = {};
-  for (let i = 0; i < columnsList.length; i++) {
+  for (let i = 0; i < list.categories.length; i++) {
     let columnName = `column-${i + 1}`;
     const taskIds = Object.keys(
       convertTasksList(
-        tasksList.filter((task) => task.category_id === columnsList[i].id)
+        list.tasks.filter((task) => task.category_id === list.categories[i].id)
       )
     );
     columns[columnName] = {
       id: columnName,
-      title: columnsList[i].title,
+      title: list.categories[i].title,
       taskIds: taskIds,
-      backgroundColor: columnsList[i].background_color,
+      backgroundColor: list.categories[i].background_color,
     };
   }
 
@@ -55,7 +55,7 @@ export const getCategoryId = (columnName, categories) => {
 export const getInitialDashboard = (list, initialData) => {
   const tasks = convertTasksList(list.tasks);
   const columnOrder = getColumnOrder(list.categories);
-  const columns = convertColumnsList(list.categories, list.tasks);
+  const columns = convertColumnsList(list);
 
   return {
     ...initialData,
