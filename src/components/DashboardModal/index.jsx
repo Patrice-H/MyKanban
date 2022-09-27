@@ -8,8 +8,7 @@ const DashboardModal = (props) => {
   const [dashbordInputError, setDashboardInputError] = useState(false);
   const [columnsNumber, setColumnsNumber] = useState('');
   const [columnsInput, setColumnsInput] = useState([]);
-  const setIsDashboardsLoaded = props.setIsDashboardsLoaded;
-  const setPages = props.setPages;
+  const setDisplayController = props.setDisplayController;
 
   const saveDashboard = async () => {
     let dashboardId;
@@ -41,8 +40,11 @@ const DashboardModal = (props) => {
     }
     setDashboardInputEntry('');
     setColumnsNumber('');
-    setIsDashboardsLoaded(false);
-    setPages([]);
+    setDisplayController({
+      ...props.displayController,
+      dashboards: [],
+      isDashboardsLoaded: false,
+    });
     closeDashboardModal();
   };
 
