@@ -52,10 +52,10 @@ export const getCategoryId = (columnName, categories) => {
   return category.id;
 };
 
-export const getInitialDashboard = (categories, dbList, initialData) => {
-  const tasks = convertTasksList(dbList);
-  const columnOrder = getColumnOrder(categories);
-  const columns = convertColumnsList(categories, dbList);
+export const getInitialDashboard = (list, initialData) => {
+  const tasks = convertTasksList(list.tasks);
+  const columnOrder = getColumnOrder(list.categories);
+  const columns = convertColumnsList(list.categories, list.tasks);
 
   return {
     ...initialData,

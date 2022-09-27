@@ -179,12 +179,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     const initialDashboard =
-      dataLoaded &&
-      getInitialDashboard(
-        props.dbData.categories,
-        props.dbData.tasks,
-        initialData
-      );
+      dataLoaded && getInitialDashboard(props.dbData, initialData);
     dataLoaded && setDashboard(initialDashboard);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.dbData]);
