@@ -7,8 +7,7 @@ import { initialData } from './data/initialData';
 
 const App = () => {
   const [dashboard, setDashboard] = useState(initialData);
-  const [categories, setCategories] = useState();
-  const [dbTasks, setDbTasks] = useState();
+  const [dbData, setDbData] = useState({ categories: [], tasks: [] });
 
   return (
     <Router>
@@ -19,11 +18,9 @@ const App = () => {
           element={
             <Dashboard
               dashboard={dashboard}
-              categories={categories}
-              dbTasks={dbTasks}
-              setDbTasks={setDbTasks}
+              dbData={dbData}
               setDashboard={setDashboard}
-              setCategories={setCategories}
+              setDbData={setDbData}
             />
           }
         ></Route>

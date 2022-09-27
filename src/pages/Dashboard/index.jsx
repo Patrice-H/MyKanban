@@ -15,8 +15,7 @@ import { getCategoryId, getInitialDashboard } from '../../utils/functions';
 
 const Dashboard = (props) => {
   const setDashboard = props.setDashboard;
-  const setCategories = props.setCategories;
-  const setDbTasks = props.setDbTasks;
+  const setDbData = props.setDbData;
   const [editedTask, setEditedTask] = useState();
   const [inputEntry, setInputEntry] = useState('');
   const [message, setMessage] = useState();
@@ -25,7 +24,7 @@ const Dashboard = (props) => {
   const dashboardId = parseInt(param.dashboardId);
 
   let dataLoaded =
-    props.dbTasks !== undefined && props.categories !== undefined;
+    props.dbData.tasks.length > 0 && props.dbData.categories.length > 0;
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -71,7 +70,7 @@ const Dashboard = (props) => {
         if (newTaskIds[i] !== start.taskIds[i]) {
           const id = parseInt(newTaskIds[i].split('task-')[1]);
           const title = props.dashboard.tasks[newTaskIds[i]].title;
-          const categoryId = getCategoryId(start.id, props.categories);
+          const categoryId = getCategoryId(start.id, props.dbData.categories);
           const order = i + 1;
           updateTask(id, title, order, categoryId, dashboardId).then((data) => {
             setMessage(data.message);
@@ -109,7 +108,7 @@ const Dashboard = (props) => {
     if (finish.taskIds.length === 0) {
       const id = parseInt(draggableId.split('task-')[1]);
       const title = props.dashboard.tasks[draggableId].title;
-      const categoryId = getCategoryId(finish.id, props.categories);
+      const categoryId = getCategoryId(finish.id, props.dbData.categories);
       const order = destination.index + 1;
       updateTask(id, title, order, categoryId, dashboardId).then((data) => {
         setMessage(data.message);
@@ -120,7 +119,7 @@ const Dashboard = (props) => {
       if (startTaskIds[i] !== start.taskIds[i]) {
         const id = parseInt(startTaskIds[i].split('task-')[1]);
         const title = props.dashboard.tasks[startTaskIds[i]].title;
-        const categoryId = getCategoryId(start.id, props.categories);
+        const categoryId = getCategoryId(start.id, props.dbData.categories);
         const order = i + 1;
         updateTask(id, title, order, categoryId, dashboardId).then((data) => {
           setMessage(data.message);
@@ -132,7 +131,7 @@ const Dashboard = (props) => {
       if (finish.taskIds.length > 0 && finishTaskIds[i] !== finish.taskIds[i]) {
         const id = parseInt(finishTaskIds[i].split('task-')[1]);
         const title = props.dashboard.tasks[finishTaskIds[i]].title;
-        const categoryId = getCategoryId(finish.id, props.categories);
+        const categoryId = getCategoryId(finish.id, props.dbData.categories);
         const order = getOrder(finishTaskIds, finishTaskIds[i]);
         updateTask(id, title, order, categoryId, dashboardId).then((data) => {
           setMessage(data.message);
@@ -156,36 +155,39 @@ const Dashboard = (props) => {
     </>
   );
 
-  const getCategories = async () => {
+  const getAllData = async () => {
+    let categories, tasks;
     await getCategoriesList().then((data) => {
-      setCategories(
-        data.data.filter((category) => category.dashboard_id === dashboardId)
+      categories = data.data.filter(
+        (category) => category.dashboard_id === dashboardId
       );
     });
-  };
-
-  const getTasks = async () => {
     await getTasksList().then((data) => {
-      const result = data.data.filter(
-        (task) => task.dashboard_id === dashboardId
-      );
-      setDbTasks(result);
+      tasks = data.data.filter((task) => task.dashboard_id === dashboardId);
+    });
+    setDbData({
+      ...props.dbData,
+      categories,
+      tasks,
     });
   };
 
   useEffect(() => {
-    getCategories();
-    getTasks();
+    getAllData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const initialDashboard =
       dataLoaded &&
-      getInitialDashboard(props.categories, props.dbTasks, initialData);
+      getInitialDashboard(
+        props.dbData.categories,
+        props.dbData.tasks,
+        initialData
+      );
     dataLoaded && setDashboard(initialDashboard);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.categories, props.dbTasks]);
+  }, [props.dbData]);
 
   return (
     <>
@@ -195,7 +197,7 @@ const Dashboard = (props) => {
         editedTask={editedTask}
         inputEntry={inputEntry}
         message={message}
-        categories={props.categories}
+        categories={props.dbData.categories}
         setDashboard={setDashboard}
         setEditedTask={setEditedTask}
         setInputEntry={setInputEntry}
@@ -216,7 +218,7 @@ const Dashboard = (props) => {
                   dashboard={props.dashboard}
                   column={column}
                   tasks={tasks}
-                  categories={props.categories}
+                  categories={props.dbData.categories}
                   setDashboard={setDashboard}
                   setEditedTask={setEditedTask}
                   setInputEntry={setInputEntry}
