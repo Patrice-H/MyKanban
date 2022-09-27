@@ -46,7 +46,7 @@ const getColumnOrder = (list) => {
 
 export const getCategoryId = (columnName, categories) => {
   let category = categories.find(
-    (category) => category.id === parseInt(columnName.split('column-')[1])
+    (category) => category.order === parseInt(columnName.split('column-')[1])
   );
 
   return category.id;
