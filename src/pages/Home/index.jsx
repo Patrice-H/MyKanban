@@ -3,22 +3,23 @@ import { Button } from '@mui/material';
 import Thumbnail from '../../components/Thumbnail';
 import { getDashboardsList } from '../../services/dbManager';
 import DashboardModal from '../../components/DashboardModal';
+import { openDashboardModal } from '../../utils/functions';
 import './Home.css';
 
-const Home = () => {
+const Home = (props) => {
   const [pages, setPages] = useState();
-
-  const openDashboardModal = () => {
-    const modal = document.getElementById('dashboard-modal');
-    modal.classList.remove('hidden');
-  };
+  const [isDashboardsLoaded, setIsDashboardsLoaded] = useState(false);
 
   useEffect(() => {
-    let dashboardIds = [];
-    getDashboardsList().then((data) => {
-      data.data.forEach((item) => dashboardIds.push(item.id));
-      setPages(dashboardIds);
-    });
+    if (!isDashboardsLoaded) {
+      let dashboardIds = [];
+      getDashboardsList().then((data) => {
+        data.data.forEach((item) => dashboardIds.push(item.id));
+        setPages(dashboardIds);
+      });
+      setIsDashboardsLoaded(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pages]);
 
   return (
@@ -42,7 +43,10 @@ const Home = () => {
             className="thumbnail"
           />
         ))}
-      <DashboardModal />
+      <DashboardModal
+        setIsDashboardsLoaded={setIsDashboardsLoaded}
+        setPages={setPages}
+      />
     </div>
   );
 };
