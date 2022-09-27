@@ -23,9 +23,6 @@ const Dashboard = (props) => {
   const param = useParams();
   const dashboardId = parseInt(param.dashboardId);
 
-  let dataLoaded =
-    props.dbData.tasks.length > 0 && props.dbData.categories.length > 0;
-
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
     const getOrder = (list, task) => {
@@ -178,9 +175,8 @@ const Dashboard = (props) => {
   }, []);
 
   useEffect(() => {
-    const initialDashboard =
-      dataLoaded && getInitialDashboard(props.dbData, initialData);
-    dataLoaded && setDashboard(initialDashboard);
+    const initialDashboard = getInitialDashboard(props.dbData, initialData);
+    setDashboard(initialDashboard);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.dbData]);
 
