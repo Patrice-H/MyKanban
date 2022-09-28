@@ -3,3 +3,8 @@
   width: 100%;
   top: 0;
 }
+#home-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}

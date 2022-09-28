@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { createTask, updateTask } from '../../services/dbManager';
 import { getCategoryId } from '../../utils/functions';
 import MuiButton from './MuiButton';
@@ -106,6 +107,9 @@ const Header = (props) => {
 
   return (
     <section className="header">
+      <Link to="/" id="home-link">
+        retour aux tableaux de bord
+      </Link>
       <MuiHeading1 dashboardId={props.dashboardId} />
       <div className="task-form">
         <MuiTextField
