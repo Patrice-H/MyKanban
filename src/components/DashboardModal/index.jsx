@@ -8,54 +8,74 @@ const DashboardModal = (props) => {
   const [dashbordInputError, setDashboardInputError] = useState(false);
   const [columnsNumber, setColumnsNumber] = useState('');
   const [columnsInput, setColumnsInput] = useState([]);
+  const [columnsInputEntry, setColumnsInputEntry] = useState();
+  const [columnsInputError, setColumnsInputError] = useState();
   const setDisplayController = props.setDisplayController;
 
   const saveDashboard = async () => {
     let dashboardId;
     let columnsTitle = [];
+    let columnsError = [...columnsInputError];
+    let formError = false;
     let dashboardTitle = document.getElementById('dashboard-title-input').value;
     if (dashboardTitle === '') {
       setDashboardInputError(true);
-
-      return;
+      formError = true;
     }
-    await createDashboard(dashboardTitle).then((data) => {
-      dashboardId = data.data.id;
-    });
 
     if (columnsInput.length > 0) {
-      columnsInput.forEach((column) => {
+      columnsInput.forEach((column, index) => {
         let category = document.getElementById(`input-column-${column}`).value;
         columnsTitle.push(category);
+        if (category === '') {
+          columnsError[index] = true;
+          formError = true;
+        }
       });
+      setColumnsInputError(columnsError);
     }
 
-    for (let i = 0; i < columnsTitle.length; i++) {
-      await createCategory(
-        columnsTitle[i],
-        i + 1,
-        'rgba(255, 255, 0, 0.25)',
-        dashboardId
-      );
+    if (formError) {
+      return;
+    } else {
+      await createDashboard(dashboardTitle).then((data) => {
+        dashboardId = data.data.id;
+      });
+
+      for (let i = 0; i < columnsTitle.length; i++) {
+        await createCategory(
+          columnsTitle[i],
+          i + 1,
+          'rgba(255, 255, 0, 0.25)',
+          dashboardId
+        );
+      }
+      setDashboardInputEntry('');
+      setColumnsNumber('');
+      setDisplayController({
+        ...props.displayController,
+        dashboards: [],
+        isDashboardsLoaded: false,
+      });
+      closeDashboardModal();
     }
-    setDashboardInputEntry('');
-    setColumnsNumber('');
-    setDisplayController({
-      ...props.displayController,
-      dashboards: [],
-      isDashboardsLoaded: false,
-    });
-    closeDashboardModal();
   };
 
   useEffect(() => {
     let columns = [];
+    let columnsEntry = [];
+    let columnsError = [];
     if (columnsNumber !== '') {
       for (let i = 0; i < columnsNumber; i++) {
         columns.push(i + 1);
+        columnsEntry.push('');
+        columnsError.push(false);
       }
     }
     setColumnsInput(columns);
+    setColumnsInputEntry(columnsEntry);
+    setColumnsInputError(columnsError);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columnsNumber]);
 
   return (
@@ -97,6 +117,17 @@ const DashboardModal = (props) => {
               required
               variant="outlined"
               label={`Titre de la colonne ${column}`}
+              value={columnsInputEntry[column - 1]}
+              onChange={(e) => {
+                let columnsEntry = [...columnsInputEntry];
+                let columnsError = [...columnsInputError];
+                columnsEntry[column - 1] = e.target.value;
+                columnsError[column - 1] = false;
+                setColumnsInputEntry(columnsEntry);
+                setColumnsInputError(columnsError);
+              }}
+              error={columnsInputError[column - 1]}
+              helperText={columnsInputError[column - 1] ? 'Titre requis' : null}
               sx={{ width: '250px' }}
             />
           ))}
@@ -116,6 +147,7 @@ const DashboardModal = (props) => {
             onClick={(e) => {
               e.preventDefault();
               setDashboardInputError(false);
+              setDashboardInputEntry('');
               setColumnsNumber('');
               closeDashboardModal();
             }}
