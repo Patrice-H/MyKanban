@@ -123,3 +123,17 @@ export const createDashboard = async (title) => {
     return response.json();
   });
 };
+
+export const removeDashboard = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  return fetch(`${apiBaseUrl}/api/dashboard/${id}`, options).then(
+    (response) => {
+      return response.json();
+    }
+  );
+};
