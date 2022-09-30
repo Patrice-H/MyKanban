@@ -95,6 +95,32 @@ export const createCategory = async (
   });
 };
 
+export const updateCategory = async (
+  id,
+  title,
+  order,
+  background_color,
+  dashboard_id
+) => {
+  const updatedTask = {
+    title,
+    order,
+    background_color,
+    dashboard_id,
+  };
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedTask),
+  };
+
+  return fetch(`${apiBaseUrl}/api/category/${id}`, options).then((response) => {
+    return response.json();
+  });
+};
+
 export const removeCategory = async (id) => {
   const options = {
     method: 'DELETE',
