@@ -94,8 +94,12 @@ const DashboardModal = (props) => {
     if (dashboardForm.columns.number !== '') {
       for (let i = 0; i < dashboardForm.columns.number; i++) {
         columns.push(i + 1);
-        columnsEntry.push('');
         columnsError.push(false);
+        if (dashboardForm.columns.inputEntry[i]) {
+          columnsEntry.push(dashboardForm.columns.inputEntry[i]);
+        } else {
+          columnsEntry.push('');
+        }
       }
     }
     setDashboardForm({
