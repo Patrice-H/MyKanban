@@ -95,6 +95,18 @@ export const createCategory = async (
   });
 };
 
+export const removeCategory = async (id) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  return fetch(`${apiBaseUrl}/api/category/${id}`, options).then((response) => {
+    return response.json();
+  });
+};
+
 export const getDashboardsList = async () => {
   return fetch(`${apiBaseUrl}/api/dashboards`).then((response) => {
     return response.json();
