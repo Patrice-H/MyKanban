@@ -54,7 +54,7 @@ export default function CustomizedMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   //const setEditedTask = props.setEditedTask;
   //const setInputEntry = props.setInputEntry;
-  //const deleteTask = props.deleteTask;
+  const deleteItem = props.deleteItem;
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,9 +63,15 @@ export default function CustomizedMenu(props) {
     setAnchorEl(null);
   };
   const deleteCard = () => {
+    const text =
+      props.item === 'dashboard' ? 'ce tableau de bord' : 'cette tâche';
     handleClose();
-    if (window.confirm('Voulez vous réellement supprimer cette tâche ?')) {
-      //deleteTask(props.task.id);
+    if (
+      window.confirm(
+        `Voulez vous réellement supprimer ${text} et tout son contenu ?`
+      )
+    ) {
+      deleteItem(props.itemId);
     }
   };
   const renameCard = () => {

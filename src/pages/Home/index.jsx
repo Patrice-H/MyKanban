@@ -42,7 +42,11 @@ const Home = () => {
       <h1 className="main-title">Tableaux de bord</h1>
       {displayController.dashboards.length > 0 &&
         displayController.dashboards.map((dashboard) => (
-          <Thumbnail key={`thumbnail-${dashboard}`} dashboardId={dashboard} />
+          <Thumbnail
+            key={`thumbnail-${dashboard}`}
+            dashboardId={dashboard}
+            setDisplayController={setDisplayController}
+          />
         ))}
       <DashboardModal
         displayController={displayController}
