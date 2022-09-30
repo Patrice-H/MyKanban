@@ -1,42 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import { createCategory, createDashboard } from '../../services/dbManager';
 import { closeDashboardModal } from '../../utils/functions';
 
 const DashboardModal = (props) => {
-  const [dashboardForm, setDashboardForm] = useState({
-    dashboard: {
-      inputEntry: '',
-      inputError: false,
-    },
-    columns: {
-      number: '',
-      inputFields: [],
-      inputEntry: [],
-      inputError: [],
-    },
-  });
   const setDisplayController = props.setDisplayController;
+  const setDashboardForm = props.setDashboardForm;
 
   const saveDashboard = async () => {
     let dashboardId;
     let columnsTitle = [];
-    let columnsError = [...dashboardForm.columns.inputError];
+    let columnsError = [...props.dashboardForm.columns.inputError];
     let formError = false;
     let dashboardTitle = document.getElementById('dashboard-title-input').value;
     if (dashboardTitle === '') {
       setDashboardForm({
         dashboard: {
-          inputEntry: dashboardForm.dashboard.inputEntry,
+          inputEntry: props.dashboardForm.dashboard.inputEntry,
           inputError: true,
         },
-        columns: dashboardForm.columns,
+        columns: props.dashboardForm.columns,
       });
       formError = true;
     }
 
-    if (dashboardForm.columns.inputFields.length > 0) {
-      dashboardForm.columns.inputFields.forEach((column, index) => {
+    if (props.dashboardForm.columns.inputFields.length > 0) {
+      props.dashboardForm.columns.inputFields.forEach((column, index) => {
         let category = document.getElementById(`input-column-${column}`).value;
         columnsTitle.push(category);
         if (category === '') {
@@ -45,9 +34,9 @@ const DashboardModal = (props) => {
         }
       });
       setDashboardForm({
-        dashboard: dashboardForm.dashboard,
+        dashboard: props.dashboardForm.dashboard,
         columns: {
-          ...dashboardForm.columns,
+          ...props.dashboardForm.columns,
           inputError: columnsError,
         },
       });
@@ -70,11 +59,11 @@ const DashboardModal = (props) => {
       }
       setDashboardForm({
         dashboard: {
-          ...dashboardForm.dashboard,
+          ...props.dashboardForm.dashboard,
           inputEntry: '',
         },
         columns: {
-          ...dashboardForm.columns,
+          ...props.dashboardForm.columns,
           number: '',
         },
       });
@@ -91,12 +80,12 @@ const DashboardModal = (props) => {
     let columns = [];
     let columnsEntry = [];
     let columnsError = [];
-    if (dashboardForm.columns.number !== '') {
-      for (let i = 0; i < dashboardForm.columns.number; i++) {
+    if (props.dashboardForm.columns.number !== '') {
+      for (let i = 0; i < props.dashboardForm.columns.number; i++) {
         columns.push(i + 1);
         columnsError.push(false);
-        if (dashboardForm.columns.inputEntry[i]) {
-          columnsEntry.push(dashboardForm.columns.inputEntry[i]);
+        if (props.dashboardForm.columns.inputEntry[i]) {
+          columnsEntry.push(props.dashboardForm.columns.inputEntry[i]);
         } else {
           columnsEntry.push('');
         }
@@ -104,42 +93,44 @@ const DashboardModal = (props) => {
     }
     setDashboardForm({
       dashboard: {
-        ...dashboardForm.dashboard,
+        ...props.dashboardForm.dashboard,
       },
       columns: {
-        ...dashboardForm.columns,
+        ...props.dashboardForm.columns,
         inputFields: columns,
         inputEntry: columnsEntry,
         inputError: columnsError,
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboardForm.columns.number]);
+  }, [props.dashboardForm.columns.number]);
 
   return (
     <div className="modal hidden" id="dashboard-modal">
       <div
         id="dashboard-modal-content"
-        className={dashboardForm.columns.number > 5 ? 'scrolled-modal' : null}
+        className={
+          props.dashboardForm.columns.number > 5 ? 'scrolled-modal' : null
+        }
       >
         <TextField
           id="dashboard-title-input"
           required
           variant="outlined"
           label="Titre du tableau de bord"
-          value={dashboardForm.dashboard.inputEntry}
+          value={props.dashboardForm.dashboard.inputEntry}
           onChange={(e) => {
             setDashboardForm({
               dashboard: {
                 inputEntry: e.target.value,
                 inputError: false,
               },
-              columns: dashboardForm.columns,
+              columns: props.dashboardForm.columns,
             });
           }}
-          error={dashboardForm.dashboard.inputError}
+          error={props.dashboardForm.dashboard.inputError}
           helperText={
-            dashboardForm.dashboard.inputError ? 'Titre requis' : null
+            props.dashboardForm.dashboard.inputError ? 'Titre requis' : null
           }
           sx={{ width: '250px' }}
         />
@@ -148,44 +139,44 @@ const DashboardModal = (props) => {
           label="Nombre de colonnes"
           type="number"
           InputProps={{ inputProps: { min: '0', max: '20', step: '1' } }}
-          value={dashboardForm.columns.number}
+          value={props.dashboardForm.columns.number}
           onChange={(e) => {
             setDashboardForm({
-              dashboard: dashboardForm.dashboard,
+              dashboard: props.dashboardForm.dashboard,
               columns: {
-                ...dashboardForm.columns,
+                ...props.dashboardForm.columns,
                 number: e.target.value,
               },
             });
           }}
           sx={{ width: '250px' }}
         />
-        {dashboardForm.columns.inputFields &&
-          dashboardForm.columns.inputFields.map((column) => (
+        {props.dashboardForm.columns.inputFields &&
+          props.dashboardForm.columns.inputFields.map((column) => (
             <TextField
               key={`column-${column}`}
               id={`input-column-${column}`}
               required
               variant="outlined"
               label={`Titre de la colonne ${column}`}
-              value={dashboardForm.columns.inputEntry[column - 1]}
+              value={props.dashboardForm.columns.inputEntry[column - 1]}
               onChange={(e) => {
-                let columnsEntry = [...dashboardForm.columns.inputEntry];
-                let columnsError = [...dashboardForm.columns.inputError];
+                let columnsEntry = [...props.dashboardForm.columns.inputEntry];
+                let columnsError = [...props.dashboardForm.columns.inputError];
                 columnsEntry[column - 1] = e.target.value;
                 columnsError[column - 1] = false;
                 setDashboardForm({
-                  dashboard: dashboardForm.dashboard,
+                  dashboard: props.dashboardForm.dashboard,
                   columns: {
-                    ...dashboardForm.columns,
+                    ...props.dashboardForm.columns,
                     inputEntry: columnsEntry,
                     inputError: columnsError,
                   },
                 });
               }}
-              error={dashboardForm.columns.inputError[column - 1]}
+              error={props.dashboardForm.columns.inputError[column - 1]}
               helperText={
-                dashboardForm.columns.inputError[column - 1]
+                props.dashboardForm.columns.inputError[column - 1]
                   ? 'Titre requis'
                   : null
               }
@@ -213,7 +204,7 @@ const DashboardModal = (props) => {
                   inputError: false,
                 },
                 columns: {
-                  ...dashboardForm.columns,
+                  ...props.dashboardForm.columns,
                   number: '',
                 },
               });

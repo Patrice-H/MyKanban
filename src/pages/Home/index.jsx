@@ -11,6 +11,18 @@ const Home = () => {
     dashboards: [],
     isDashboardsLoaded: false,
   });
+  const [dashboardForm, setDashboardForm] = useState({
+    dashboard: {
+      inputEntry: '',
+      inputError: false,
+    },
+    columns: {
+      number: '',
+      inputFields: [],
+      inputEntry: [],
+      inputError: [],
+    },
+  });
 
   useEffect(() => {
     if (!displayController.isDashboardsLoaded) {
@@ -50,7 +62,9 @@ const Home = () => {
         ))}
       <DashboardModal
         displayController={displayController}
+        dashboardForm={dashboardForm}
         setDisplayController={setDisplayController}
+        setDashboardForm={setDashboardForm}
       />
     </div>
   );
