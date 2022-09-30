@@ -136,6 +136,25 @@ export const createDashboard = async (title) => {
   });
 };
 
+export const updateDashboard = async (id, title) => {
+  const updatedTask = {
+    title,
+  };
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedTask),
+  };
+
+  return fetch(`${apiBaseUrl}/api/dashboard/${id}`, options).then(
+    (response) => {
+      return response.json();
+    }
+  );
+};
+
 export const removeDashboard = async (id) => {
   const options = {
     method: 'DELETE',
