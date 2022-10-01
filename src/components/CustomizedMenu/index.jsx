@@ -6,6 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { openDashboardModal } from '../../utils/functions';
+import { getCategoriesList, getDashboard } from '../../services/dbManager';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -55,6 +57,7 @@ export default function CustomizedMenu(props) {
   //const setEditedTask = props.setEditedTask;
   //const setInputEntry = props.setInputEntry;
   const deleteItem = props.deleteItem;
+  const setDashboardForm = props.setDashboardForm;
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -74,8 +77,44 @@ export default function CustomizedMenu(props) {
       deleteItem(props.itemId);
     }
   };
-  const renameCard = () => {
+  const updateCard = async () => {
     handleClose();
+    if (props.item === 'dashboard') {
+      let columnsIds = [];
+      let inputFields = [];
+      let inputEntry = [];
+      let inputError = [];
+      const categories = await getCategoriesList().then((data) => {
+        return data.data.filter(
+          (category) => category.dashboard_id === props.itemId
+        );
+      });
+      const dashboard = await getDashboard(props.itemId).then((data) => {
+        return data.data;
+      });
+      for (let i = 0; i < categories.length; i++) {
+        columnsIds.push(categories[i].id);
+        inputFields.push(i + 1);
+        inputError.push(false);
+        inputEntry.push(categories[i].title);
+      }
+      setDashboardForm({
+        dashboard: {
+          id: dashboard.id,
+          inputEntry: dashboard.title,
+          inputError: false,
+        },
+        columns: {
+          ids: columnsIds,
+          number: categories.length,
+          inputFields,
+          inputEntry,
+          inputError,
+        },
+      });
+      openDashboardModal();
+    }
+
     //setEditedTask(props.task.id);
     //setInputEntry(props.task.title);
   };
@@ -101,9 +140,9 @@ export default function CustomizedMenu(props) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={renameCard} disableRipple>
+        <MenuItem onClick={updateCard} disableRipple>
           <EditIcon />
-          Renommer
+          Modifier
         </MenuItem>
         <MenuItem onClick={deleteCard} disableRipple>
           <DeleteIcon />

@@ -11,6 +11,7 @@ import './Thumbnail.css';
 
 const Thumbnail = (props) => {
   const setDisplayController = props.setDisplayController;
+  const setDashboardForm = props.setDashboardForm;
 
   const deleteDashboard = async (id) => {
     const tasks = await getTasksList().then((data) => {
@@ -21,7 +22,7 @@ const Thumbnail = (props) => {
     });
     tasks.forEach((task) => removeTask(task.id));
     categories.forEach((category) => removeCategory(category.id));
-    removeDashboard(id);
+    await removeDashboard(id);
     setDisplayController({
       dashboards: [],
       isDashboardsLoaded: false,
@@ -47,6 +48,7 @@ const Thumbnail = (props) => {
         item="dashboard"
         itemId={props.dashboardId}
         deleteItem={deleteDashboard}
+        setDashboardForm={setDashboardForm}
       />
     </div>
   );

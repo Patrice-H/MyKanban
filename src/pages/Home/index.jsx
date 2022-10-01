@@ -13,16 +13,19 @@ const Home = () => {
   });
   const [dashboardForm, setDashboardForm] = useState({
     dashboard: {
+      id: '',
       inputEntry: '',
       inputError: false,
     },
     columns: {
       number: '',
+      ids: [],
       inputFields: [],
       inputEntry: [],
       inputError: [],
     },
   });
+  const [modalType, setModalType] = useState();
 
   useEffect(() => {
     if (!displayController.isDashboardsLoaded) {
@@ -46,6 +49,7 @@ const Home = () => {
         id="add-dashboard-btn"
         onClick={(e) => {
           e.preventDefault();
+          setModalType('adding');
           openDashboardModal();
         }}
       >
@@ -58,13 +62,16 @@ const Home = () => {
             key={`thumbnail-${dashboard}`}
             dashboardId={dashboard}
             setDisplayController={setDisplayController}
+            setDashboardForm={setDashboardForm}
           />
         ))}
       <DashboardModal
         displayController={displayController}
         dashboardForm={dashboardForm}
+        modalType={modalType}
         setDisplayController={setDisplayController}
         setDashboardForm={setDashboardForm}
+        setModalType={setModalType}
       />
     </div>
   );

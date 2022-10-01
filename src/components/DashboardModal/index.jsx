@@ -1,11 +1,18 @@
 import { useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
-import { createCategory, createDashboard } from '../../services/dbManager';
+import {
+  createCategory,
+  createDashboard,
+  removeCategory,
+  updateCategory,
+  updateDashboard,
+} from '../../services/dbManager';
 import { closeDashboardModal } from '../../utils/functions';
 
 const DashboardModal = (props) => {
   const setDisplayController = props.setDisplayController;
   const setDashboardForm = props.setDashboardForm;
+  const setModalType = props.setModalType;
 
   const saveDashboard = async () => {
     let dashboardId;
@@ -16,7 +23,7 @@ const DashboardModal = (props) => {
     if (dashboardTitle === '') {
       setDashboardForm({
         dashboard: {
-          inputEntry: props.dashboardForm.dashboard.inputEntry,
+          ...props.dashboardForm.dashboard,
           inputError: true,
         },
         columns: props.dashboardForm.columns,
@@ -45,17 +52,46 @@ const DashboardModal = (props) => {
     if (formError) {
       return;
     } else {
-      await createDashboard(dashboardTitle).then((data) => {
-        dashboardId = data.data.id;
-      });
+      if (props.modalType === 'adding') {
+        await createDashboard(dashboardTitle).then((data) => {
+          dashboardId = data.data.id;
+        });
 
-      for (let i = 0; i < columnsTitle.length; i++) {
-        await createCategory(
-          columnsTitle[i],
-          i + 1,
-          'rgba(255, 255, 0, 0.25)',
-          dashboardId
-        );
+        for (let i = 0; i < columnsTitle.length; i++) {
+          await createCategory(
+            columnsTitle[i],
+            i + 1,
+            'rgba(255, 255, 0, 0.25)',
+            dashboardId
+          );
+        }
+      } else {
+        await updateDashboard(props.dashboardForm.dashboard.id, dashboardTitle);
+        for (let i = 0; i < props.dashboardForm.columns.number; i++) {
+          if (props.dashboardForm.columns.ids[i] !== undefined) {
+            await updateCategory(
+              props.dashboardForm.columns.ids[i],
+              columnsTitle[i],
+              i + 1,
+              'rgba(255, 255, 0, 0.25)',
+              props.dashboardForm.dashboard.id
+            );
+          } else {
+            await createCategory(
+              columnsTitle[i],
+              i + 1,
+              'rgba(255, 255, 0, 0.25)',
+              props.dashboardForm.dashboard.id
+            );
+          }
+        }
+        for (
+          let i = props.dashboardForm.columns.number;
+          i < props.dashboardForm.columns.ids.length;
+          i++
+        ) {
+          removeCategory(props.dashboardForm.columns.ids[i]);
+        }
       }
       setDashboardForm({
         dashboard: {
@@ -73,6 +109,7 @@ const DashboardModal = (props) => {
         isDashboardsLoaded: false,
       });
       closeDashboardModal();
+      setModalType();
     }
   };
 
@@ -122,6 +159,7 @@ const DashboardModal = (props) => {
           onChange={(e) => {
             setDashboardForm({
               dashboard: {
+                ...props.dashboardForm.dashboard,
                 inputEntry: e.target.value,
                 inputError: false,
               },
@@ -191,7 +229,7 @@ const DashboardModal = (props) => {
               saveDashboard();
             }}
           >
-            créer
+            {props.modalType === 'adding' ? 'ajouter' : 'mettre à jour'}
           </Button>
           <Button
             variant="contained"
@@ -200,6 +238,7 @@ const DashboardModal = (props) => {
               e.preventDefault();
               setDashboardForm({
                 dashboard: {
+                  ...props.dashboardForm.dashboard,
                   inputEntry: '',
                   inputError: false,
                 },
@@ -209,6 +248,7 @@ const DashboardModal = (props) => {
                 },
               });
               closeDashboardModal();
+              setModalType();
             }}
           >
             Annuler
