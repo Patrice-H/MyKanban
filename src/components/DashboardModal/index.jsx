@@ -8,6 +8,8 @@ import {
   updateDashboard,
 } from '../../services/dbManager';
 import { closeDashboardModal } from '../../utils/functions';
+import ColorPicker from '../ColorPicker';
+import './DashboardModal.css';
 
 const DashboardModal = (props) => {
   const setDisplayController = props.setDisplayController;
@@ -17,6 +19,7 @@ const DashboardModal = (props) => {
   const saveDashboard = async () => {
     let dashboardId;
     let columnsTitle = [];
+    let columnsColor = [];
     let columnsError = [...props.dashboardForm.columns.inputError];
     let formError = false;
     let dashboardTitle = document.getElementById('dashboard-title-input').value;
@@ -34,7 +37,11 @@ const DashboardModal = (props) => {
     if (props.dashboardForm.columns.inputFields.length > 0) {
       props.dashboardForm.columns.inputFields.forEach((column, index) => {
         let category = document.getElementById(`input-column-${column}`).value;
+        let backgroundColor = document.getElementById(
+          `color-picker-column-${column}`
+        ).style.background;
         columnsTitle.push(category);
+        columnsColor.push(backgroundColor);
         if (category === '') {
           columnsError[index] = true;
           formError = true;
@@ -61,7 +68,7 @@ const DashboardModal = (props) => {
           await createCategory(
             columnsTitle[i],
             i + 1,
-            'rgba(255, 255, 0, 0.25)',
+            props.dashboardForm.columns.backgrounds[i],
             dashboardId
           );
         }
@@ -73,14 +80,14 @@ const DashboardModal = (props) => {
               props.dashboardForm.columns.ids[i],
               columnsTitle[i],
               i + 1,
-              'rgba(255, 255, 0, 0.25)',
+              props.dashboardForm.columns.backgrounds[i],
               props.dashboardForm.dashboard.id
             );
           } else {
             await createCategory(
               columnsTitle[i],
               i + 1,
-              'rgba(255, 255, 0, 0.25)',
+              props.dashboardForm.columns.backgrounds[i],
               props.dashboardForm.dashboard.id
             );
           }
@@ -117,14 +124,17 @@ const DashboardModal = (props) => {
     let columns = [];
     let columnsEntry = [];
     let columnsError = [];
+    let columnsColor = [];
     if (props.dashboardForm.columns.number !== '') {
       for (let i = 0; i < props.dashboardForm.columns.number; i++) {
         columns.push(i + 1);
         columnsError.push(false);
         if (props.dashboardForm.columns.inputEntry[i]) {
           columnsEntry.push(props.dashboardForm.columns.inputEntry[i]);
+          columnsColor.push(props.dashboardForm.columns.backgrounds[i]);
         } else {
           columnsEntry.push('');
+          columnsColor.push('rgba(255, 255, 0, 0.25)');
         }
       }
     }
@@ -137,6 +147,7 @@ const DashboardModal = (props) => {
         inputFields: columns,
         inputEntry: columnsEntry,
         inputError: columnsError,
+        backgrounds: columnsColor,
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,7 +181,7 @@ const DashboardModal = (props) => {
           helperText={
             props.dashboardForm.dashboard.inputError ? 'Titre requis' : null
           }
-          sx={{ width: '250px' }}
+          sx={{ width: '310px' }}
         />
         <TextField
           variant="outlined"
@@ -187,39 +198,49 @@ const DashboardModal = (props) => {
               },
             });
           }}
-          sx={{ width: '250px' }}
+          sx={{ width: '310px' }}
         />
         {props.dashboardForm.columns.inputFields &&
           props.dashboardForm.columns.inputFields.map((column) => (
-            <TextField
-              key={`column-${column}`}
-              id={`input-column-${column}`}
-              required
-              variant="outlined"
-              label={`Titre de la colonne ${column}`}
-              value={props.dashboardForm.columns.inputEntry[column - 1]}
-              onChange={(e) => {
-                let columnsEntry = [...props.dashboardForm.columns.inputEntry];
-                let columnsError = [...props.dashboardForm.columns.inputError];
-                columnsEntry[column - 1] = e.target.value;
-                columnsError[column - 1] = false;
-                setDashboardForm({
-                  dashboard: props.dashboardForm.dashboard,
-                  columns: {
-                    ...props.dashboardForm.columns,
-                    inputEntry: columnsEntry,
-                    inputError: columnsError,
-                  },
-                });
-              }}
-              error={props.dashboardForm.columns.inputError[column - 1]}
-              helperText={
-                props.dashboardForm.columns.inputError[column - 1]
-                  ? 'Titre requis'
-                  : null
-              }
-              sx={{ width: '250px' }}
-            />
+            <div key={`column-${column}`} className="columns-inputs">
+              <TextField
+                id={`input-column-${column}`}
+                required
+                variant="outlined"
+                label={`Titre de la colonne ${column}`}
+                value={props.dashboardForm.columns.inputEntry[column - 1]}
+                onChange={(e) => {
+                  let columnsEntry = [
+                    ...props.dashboardForm.columns.inputEntry,
+                  ];
+                  let columnsError = [
+                    ...props.dashboardForm.columns.inputError,
+                  ];
+                  columnsEntry[column - 1] = e.target.value;
+                  columnsError[column - 1] = false;
+                  setDashboardForm({
+                    dashboard: props.dashboardForm.dashboard,
+                    columns: {
+                      ...props.dashboardForm.columns,
+                      inputEntry: columnsEntry,
+                      inputError: columnsError,
+                    },
+                  });
+                }}
+                error={props.dashboardForm.columns.inputError[column - 1]}
+                helperText={
+                  props.dashboardForm.columns.inputError[column - 1]
+                    ? 'Titre requis'
+                    : null
+                }
+                sx={{ width: '250px' }}
+              />
+              <ColorPicker
+                columnId={column}
+                dashboardForm={props.dashboardForm}
+                setDashboardForm={setDashboardForm}
+              />
+            </div>
           ))}
         <div id="dashboard-modal-btns">
           <Button
