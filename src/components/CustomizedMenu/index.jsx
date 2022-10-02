@@ -84,6 +84,7 @@ export default function CustomizedMenu(props) {
       let inputFields = [];
       let inputEntry = [];
       let inputError = [];
+      let backgrounds = [];
       const categories = await getCategoriesList().then((data) => {
         return data.data.filter(
           (category) => category.dashboard_id === props.itemId
@@ -97,6 +98,7 @@ export default function CustomizedMenu(props) {
         inputFields.push(i + 1);
         inputError.push(false);
         inputEntry.push(categories[i].title);
+        backgrounds.push(categories[i].background_color);
       }
       setDashboardForm({
         dashboard: {
@@ -110,6 +112,7 @@ export default function CustomizedMenu(props) {
           inputFields,
           inputEntry,
           inputError,
+          backgrounds,
         },
       });
       openDashboardModal();
