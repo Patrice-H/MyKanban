@@ -1,0 +1,31 @@
+.MuiInputBase-input.MuiOutlinedInput-input {
+  padding: 13.5px;
+}
+.columns-inputs {
+  width: 310px;
+  display: flex;
+  gap: 10px;
+}
+#dashboard-modal-btns {
+  width: 310px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+#dashboard-modal-content {
+  width: 310px;
+  max-height: 610px;
+  background-color: white;
+  margin: 100px auto;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 125px;
+}
+#dasboard-title-input {
+  display: block;
+}
+.scrolled-modal {
+  overflow-y: scroll;
+}
