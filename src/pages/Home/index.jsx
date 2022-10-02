@@ -23,6 +23,7 @@ const Home = () => {
       inputFields: [],
       inputEntry: [],
       inputError: [],
+      backgrounds: [],
     },
   });
   const [modalType, setModalType] = useState();
