@@ -74,3 +74,14 @@ export const openDashboardModal = () => {
   const modal = document.getElementById('dashboard-modal');
   modal.classList.remove('hidden');
 };
+
+export const convertColor = (rgbaColor) => {
+  const colorParams = rgbaColor.split('rgba(')[1].split(')')[0].split(', ');
+
+  return {
+    r: colorParams[0],
+    g: colorParams[1],
+    b: colorParams[2],
+    a: colorParams[3],
+  };
+};
