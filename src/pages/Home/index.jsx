@@ -4,9 +4,10 @@ import Thumbnail from '../../components/Thumbnail';
 import { getDashboardsList } from '../../services/dbManager';
 import DashboardModal from '../../components/DashboardModal';
 import { openDashboardModal } from '../../utils/functions';
+import { initialData } from '../../data/initialData';
 import './Home.css';
 
-const Home = () => {
+const Home = (props) => {
   const [displayController, setDisplayController] = useState({
     dashboards: [],
     isDashboardsLoaded: false,
@@ -27,6 +28,8 @@ const Home = () => {
     },
   });
   const [modalType, setModalType] = useState();
+  const setDashboard = props.setDashboard;
+  const setDbData = props.setDbData;
 
   useEffect(() => {
     if (!displayController.isDashboardsLoaded) {
@@ -40,6 +43,8 @@ const Home = () => {
         });
       });
     }
+    setDashboard(initialData);
+    setDbData({ categories: [], tasks: [] });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayController.dashboards]);
 

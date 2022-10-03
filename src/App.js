@@ -12,7 +12,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route
+          path="/"
+          element={<Home setDashboard={setDashboard} setDbData={setDbData} />}
+        ></Route>
         <Route
           path="/dashboard/:dashboardId"
           element={
