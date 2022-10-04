@@ -11,6 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { IconButton } from '@mui/material';
 import Header from '../../components/Header';
 import Column from '../../components/Column';
+import Loader from '../../components/Loader';
 import { getCategoryId, getInitialDashboard } from '../../utils/functions';
 
 const Dashboard = (props) => {
@@ -195,39 +196,47 @@ const Dashboard = (props) => {
         setMessage={setMessage}
         setIsSnackbarOpen={setIsSnackbarOpen}
       />
-      <DragDropContext onDragEnd={onDragEnd}>
+      {props.dbData.categories.length > 0 ? (
+        <>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <div className="dashboard">
+              {props.dashboard &&
+                props.dashboard.columnOrder.map((columnId) => {
+                  const column = props.dashboard.columns[columnId];
+                  const tasks = column.taskIds.map(
+                    (taskId) => props.dashboard.tasks[taskId]
+                  );
+                  return (
+                    <Column
+                      key={column.id}
+                      dashboard={props.dashboard}
+                      column={column}
+                      tasks={tasks}
+                      categories={props.dbData.categories}
+                      setDashboard={setDashboard}
+                      setEditedTask={setEditedTask}
+                      setInputEntry={setInputEntry}
+                      setMessage={setMessage}
+                      setIsSnackbarOpen={setIsSnackbarOpen}
+                    />
+                  );
+                })}
+            </div>
+          </DragDropContext>
+          <Snackbar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            open={isSnackbarOpen}
+            onClose={() => setIsSnackbarOpen(false)}
+            autoHideDuration={2000}
+            message={message}
+            action={action}
+          />
+        </>
+      ) : (
         <div className="dashboard">
-          {props.dashboard &&
-            props.dashboard.columnOrder.map((columnId) => {
-              const column = props.dashboard.columns[columnId];
-              const tasks = column.taskIds.map(
-                (taskId) => props.dashboard.tasks[taskId]
-              );
-              return (
-                <Column
-                  key={column.id}
-                  dashboard={props.dashboard}
-                  column={column}
-                  tasks={tasks}
-                  categories={props.dbData.categories}
-                  setDashboard={setDashboard}
-                  setEditedTask={setEditedTask}
-                  setInputEntry={setInputEntry}
-                  setMessage={setMessage}
-                  setIsSnackbarOpen={setIsSnackbarOpen}
-                />
-              );
-            })}
+          <Loader />
         </div>
-      </DragDropContext>
-      <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={isSnackbarOpen}
-        onClose={() => setIsSnackbarOpen(false)}
-        autoHideDuration={2000}
-        message={message}
-        action={action}
-      />
+      )}
     </>
   );
 };
