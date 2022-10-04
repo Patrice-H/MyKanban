@@ -1,0 +1,69 @@
+.bar {
+  width: 20px;
+  margin-top: 20px;
+  background: rgb(255, 255, 0);
+  border-radius: 2px;
+  animation: 1s infinite linear;
+}
+#loader-container {
+  width: 140px;
+  height: 140px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 5px;
+  background: rgb(255, 0, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+#bar-1 {
+  height: 100px;
+  animation-name: bar-1-anim;
+}
+#bar-2 {
+  height: 66px;
+  animation-name: bar-2-anim;
+}
+#bar-3 {
+  height: 33px;
+  animation-name: bar-3-anim;
+}
+@keyframes bar-1-anim {
+  from {
+    height: 100px;
+  }
+  50% {
+    height: 33px;
+  }
+  to {
+    height: 100px;
+  }
+}
+@keyframes bar-2-anim {
+  from {
+    height: 66px;
+  }
+  25% {
+    height: 100px;
+  }
+  75% {
+    height: 33px;
+  }
+  to {
+    height: 66px;
+  }
+}
+@keyframes bar-3-anim {
+  from {
+    height: 33px;
+  }
+  50% {
+    height: 100px;
+  }
+  to {
+    height: 33px;
+  }
+}
