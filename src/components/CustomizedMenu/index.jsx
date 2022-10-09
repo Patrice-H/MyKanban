@@ -54,8 +54,6 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-  //const setEditedTask = props.setEditedTask;
-  //const setInputEntry = props.setInputEntry;
   const deleteItem = props.deleteItem;
   const setDashboardForm = props.setDashboardForm;
   const open = Boolean(anchorEl);
@@ -117,9 +115,6 @@ export default function CustomizedMenu(props) {
       });
       openDashboardModal();
     }
-
-    //setEditedTask(props.task.id);
-    //setInputEntry(props.task.title);
   };
 
   return (
