@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import CustomizedMenu from '../CustomizedMenu';
 import {
   getTasksList,
@@ -31,10 +30,7 @@ const Thumbnail = (props) => {
 
   return (
     <div className="thumbnail">
-      <Link
-        to={`/dashboard/${props.dashboardId}`}
-        className="thumbnail-dashboard"
-      >
+      <div className="thumbnail-dashboard">
         <div className="mask"></div>
         <iframe
           title={`dashboard-${props.dashboardId}`}
@@ -43,7 +39,7 @@ const Thumbnail = (props) => {
           src={`http://localhost:3000/dashboard/${props.dashboardId}`}
           scrolling="no"
         ></iframe>
-      </Link>
+      </div>
       <CustomizedMenu
         item="dashboard"
         itemId={props.dashboardId}
