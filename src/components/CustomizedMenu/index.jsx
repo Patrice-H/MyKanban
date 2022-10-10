@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { styled, alpha } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -54,15 +56,24 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
   const deleteItem = props.deleteItem;
   const setDashboardForm = props.setDashboardForm;
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const openCard = (item) => {
+    if (item === 'dashboard') {
+      navigate(`/dashboard/${props.itemId}`);
+    }
+  };
+
   const deleteCard = () => {
     const text =
       props.item === 'dashboard' ? 'ce tableau de bord' : 'cette tâche';
@@ -75,6 +86,7 @@ export default function CustomizedMenu(props) {
       deleteItem(props.itemId);
     }
   };
+
   const updateCard = async () => {
     handleClose();
     if (props.item === 'dashboard') {
@@ -138,6 +150,10 @@ export default function CustomizedMenu(props) {
         open={open}
         onClose={handleClose}
       >
+        <MenuItem onClick={() => openCard(props.item)} disableRipple>
+          <OpenInNewIcon />
+          Ouvrir
+        </MenuItem>
         <MenuItem onClick={updateCard} disableRipple>
           <EditIcon />
           Modifier
