@@ -1,23 +1,24 @@
 .thumbnail {
-  margin: 0 auto 20px;
-  width: 800px;
+  margin: 10px 0 20px 0;
+  width: 650px;
   height: 270px;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 .thumbnail-dashboard {
   display: block;
   width: 600px;
   height: 250px;
-  border-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   padding: 0;
   margin: 10px 0;
 }
-.thumbnail-dashboard:hover {
-  margin: 8px -2px 12px 2px;
+.thumbnail:hover {
+  margin: 8px -2px 22px 2px;
   box-shadow: 0px 4px 8px -1px rgb(0 0 0 / 20%);
 }
 .thumbnail-dashboard iframe {
