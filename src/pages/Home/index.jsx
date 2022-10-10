@@ -62,15 +62,17 @@ const Home = (props) => {
         Nouveau tableau
       </Button>
       <h1 className="main-title">Tableaux de bord</h1>
-      {displayController.dashboards.length > 0 &&
-        displayController.dashboards.map((dashboard) => (
-          <Thumbnail
-            key={`thumbnail-${dashboard}`}
-            dashboardId={dashboard}
-            setDisplayController={setDisplayController}
-            setDashboardForm={setDashboardForm}
-          />
-        ))}
+      <div className="thumbnails-container">
+        {displayController.dashboards.length > 0 &&
+          displayController.dashboards.map((dashboard) => (
+            <Thumbnail
+              key={`thumbnail-${dashboard}`}
+              dashboardId={dashboard}
+              setDisplayController={setDisplayController}
+              setDashboardForm={setDashboardForm}
+            />
+          ))}
+      </div>
       <DashboardModal
         displayController={displayController}
         dashboardForm={dashboardForm}
