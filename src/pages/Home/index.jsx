@@ -33,12 +33,12 @@ const Home = (props) => {
 
   useEffect(() => {
     if (!displayController.isDashboardsLoaded) {
-      let dashboardIds = [];
+      let dashboardsList = [];
       getDashboardsList().then((data) => {
-        data.data.forEach((item) => dashboardIds.push(item.id));
+        data.data.forEach((item) => dashboardsList.push(item));
         setDisplayController({
           ...displayController,
-          dashboards: dashboardIds,
+          dashboards: dashboardsList,
           isDashboardsLoaded: true,
         });
       });
@@ -66,8 +66,8 @@ const Home = (props) => {
         {displayController.dashboards.length > 0 &&
           displayController.dashboards.map((dashboard) => (
             <Thumbnail
-              key={`thumbnail-${dashboard}`}
-              dashboardId={dashboard}
+              key={`thumbnail-${dashboard.id}`}
+              dashboardId={dashboard.id}
               setDisplayController={setDisplayController}
               setDashboardForm={setDashboardForm}
             />
