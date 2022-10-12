@@ -45,6 +45,8 @@ const Thumbnail = (props) => {
         item={props.dashboard}
         deleteItem={deleteDashboard}
         setDashboardForm={setDashboardForm}
+        setEditedTask={null}
+        setInputEntry={null}
       />
     </div>
   );
