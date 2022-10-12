@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { openDashboardModal } from '../../utils/functions';
-import { getCategoriesList, getDashboard } from '../../services/dbManager';
+import { getCategoriesList } from '../../services/dbManager';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -100,9 +100,6 @@ export default function CustomizedMenu(props) {
           (category) => category.dashboard_id === props.item.id
         );
       });
-      const dashboard = await getDashboard(props.item.id).then((data) => {
-        return data.data;
-      });
       for (let i = 0; i < categories.length; i++) {
         columnsIds.push(categories[i].id);
         inputFields.push(i + 1);
@@ -112,8 +109,8 @@ export default function CustomizedMenu(props) {
       }
       setDashboardForm({
         dashboard: {
-          id: dashboard.id,
-          inputEntry: dashboard.title,
+          id: props.item.id,
+          inputEntry: props.item.title,
           inputError: false,
         },
         columns: {
