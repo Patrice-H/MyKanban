@@ -41,7 +41,7 @@ const Thumbnail = (props) => {
         ></iframe>
       </div>
       <CustomizedMenu
-        item="dashboard"
+        itemType="dashboard"
         itemId={props.dashboard.id}
         deleteItem={deleteDashboard}
         setDashboardForm={setDashboardForm}

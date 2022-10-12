@@ -68,15 +68,15 @@ export default function CustomizedMenu(props) {
     setAnchorEl(null);
   };
 
-  const openCard = (item) => {
-    if (item === 'dashboard') {
+  const openCard = () => {
+    if (props.itemType === 'dashboard') {
       navigate(`/dashboard/${props.itemId}`);
     }
   };
 
   const deleteCard = () => {
     const text =
-      props.item === 'dashboard' ? 'ce tableau de bord' : 'cette tâche';
+      props.itemType === 'dashboard' ? 'ce tableau de bord' : 'cette tâche';
     handleClose();
     if (
       window.confirm(
@@ -89,7 +89,7 @@ export default function CustomizedMenu(props) {
 
   const updateCard = async () => {
     handleClose();
-    if (props.item === 'dashboard') {
+    if (props.itemType === 'dashboard') {
       let columnsIds = [];
       let inputFields = [];
       let inputEntry = [];
@@ -150,7 +150,7 @@ export default function CustomizedMenu(props) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => openCard(props.item)} disableRipple>
+        <MenuItem onClick={openCard} disableRipple>
           <OpenInNewIcon />
           Ouvrir
         </MenuItem>
