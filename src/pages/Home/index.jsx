@@ -67,7 +67,7 @@ const Home = (props) => {
           displayController.dashboards.map((dashboard) => (
             <Thumbnail
               key={`thumbnail-${dashboard.id}`}
-              dashboardId={dashboard.id}
+              dashboard={dashboard}
               setDisplayController={setDisplayController}
               setDashboardForm={setDashboardForm}
             />

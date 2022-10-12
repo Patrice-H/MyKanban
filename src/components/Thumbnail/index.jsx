@@ -33,16 +33,16 @@ const Thumbnail = (props) => {
       <div className="thumbnail-dashboard">
         <div className="mask"></div>
         <iframe
-          title={`dashboard-${props.dashboardId}`}
+          title={`dashboard-${props.dashboard.id}`}
           width="1200"
           height="500"
-          src={`http://localhost:3000/dashboard/${props.dashboardId}`}
+          src={`http://localhost:3000/dashboard/${props.dashboard.id}`}
           scrolling="no"
         ></iframe>
       </div>
       <CustomizedMenu
         item="dashboard"
-        itemId={props.dashboardId}
+        itemId={props.dashboard.id}
         deleteItem={deleteDashboard}
         setDashboardForm={setDashboardForm}
       />
