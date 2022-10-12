@@ -59,6 +59,8 @@ export default function CustomizedMenu(props) {
   const navigate = useNavigate();
   const deleteItem = props.deleteItem;
   const setDashboardForm = props.setDashboardForm;
+  const setEditedTask = props.setEditedTask;
+  const setInputEntry = props.setInputEntry;
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -123,6 +125,9 @@ export default function CustomizedMenu(props) {
         },
       });
       openDashboardModal();
+    } else {
+      setEditedTask(props.item.id);
+      setInputEntry(props.item.title);
     }
   };
 
