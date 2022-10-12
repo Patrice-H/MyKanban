@@ -65,13 +65,13 @@ export default function CustomizedMenus(props) {
   const deleteCard = () => {
     handleClose();
     if (window.confirm('Voulez vous réellement supprimer cette tâche ?')) {
-      deleteItem(props.task.id);
+      deleteItem(props.item.id);
     }
   };
   const renameCard = () => {
     handleClose();
-    setEditedTask(props.task.id);
-    setInputEntry(props.task.title);
+    setEditedTask(props.item.id);
+    setInputEntry(props.item.title);
   };
 
   return (

@@ -10,10 +10,10 @@ const MuiCard = (props) => {
         <h3 className="task-title">{props.task.title}</h3>
         <CustomizedMenus
           itemType="task"
-          task={props.task}
+          item={props.task}
+          deleteItem={props.deleteTask}
           setEditedTask={props.setEditedTask}
           setInputEntry={props.setInputEntry}
-          deleteItem={props.deleteTask}
         />
       </CardContent>
     </Card>
