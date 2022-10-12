@@ -54,7 +54,7 @@ export default function CustomizedMenus(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
-  const deleteTask = props.deleteTask;
+  const deleteItem = props.deleteItem;
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,7 +65,7 @@ export default function CustomizedMenus(props) {
   const deleteCard = () => {
     handleClose();
     if (window.confirm('Voulez vous réellement supprimer cette tâche ?')) {
-      deleteTask(props.task.id);
+      deleteItem(props.task.id);
     }
   };
   const renameCard = () => {

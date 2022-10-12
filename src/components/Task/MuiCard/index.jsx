@@ -12,7 +12,7 @@ const MuiCard = (props) => {
           task={props.task}
           setEditedTask={props.setEditedTask}
           setInputEntry={props.setInputEntry}
-          deleteTask={props.deleteTask}
+          deleteItem={props.deleteTask}
         />
       </CardContent>
     </Card>
