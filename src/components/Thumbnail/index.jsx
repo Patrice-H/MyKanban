@@ -42,7 +42,7 @@ const Thumbnail = (props) => {
       </div>
       <CustomizedMenu
         itemType="dashboard"
-        itemId={props.dashboard.id}
+        item={props.dashboard}
         deleteItem={deleteDashboard}
         setDashboardForm={setDashboardForm}
       />

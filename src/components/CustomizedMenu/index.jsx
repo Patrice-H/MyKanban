@@ -70,7 +70,7 @@ export default function CustomizedMenu(props) {
 
   const openCard = () => {
     if (props.itemType === 'dashboard') {
-      navigate(`/dashboard/${props.itemId}`);
+      navigate(`/dashboard/${props.item.id}`);
     }
   };
 
@@ -83,7 +83,7 @@ export default function CustomizedMenu(props) {
         `Voulez vous réellement supprimer ${text} et tout son contenu ?`
       )
     ) {
-      deleteItem(props.itemId);
+      deleteItem(props.item.id);
     }
   };
 
@@ -97,10 +97,10 @@ export default function CustomizedMenu(props) {
       let backgrounds = [];
       const categories = await getCategoriesList().then((data) => {
         return data.data.filter(
-          (category) => category.dashboard_id === props.itemId
+          (category) => category.dashboard_id === props.item.id
         );
       });
-      const dashboard = await getDashboard(props.itemId).then((data) => {
+      const dashboard = await getDashboard(props.item.id).then((data) => {
         return data.data;
       });
       for (let i = 0; i < categories.length; i++) {
