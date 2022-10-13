@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ExpandIcon from '@mui/icons-material/Expand';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -154,7 +155,7 @@ export default function CustomizedMenu(props) {
         onClose={handleClose}
       >
         <MenuItem onClick={openCard} disableRipple>
-          <OpenInNewIcon />
+          {props.itemType === 'dashboard' ? <OpenInNewIcon /> : <ExpandIcon />}
           Ouvrir
         </MenuItem>
         <MenuItem onClick={updateCard} disableRipple>
