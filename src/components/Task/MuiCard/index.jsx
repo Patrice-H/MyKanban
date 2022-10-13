@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CustomizedMenu from '../../CustomizedMenu';
 import './MuiCard.css';
 
 const MuiCard = (props) => {
+  const [isCardExpanded, setIsCardExpanded] = useState(false);
+
   return (
     <Card>
       <CardContent>
@@ -16,9 +19,14 @@ const MuiCard = (props) => {
             setDashboardForm={null}
             setEditedTask={props.setEditedTask}
             setInputEntry={props.setInputEntry}
+            setIsCardExpanded={setIsCardExpanded}
           />
         </div>
-        <div className="task-body hidden-description">
+        <div
+          className={
+            isCardExpanded ? 'task-body' : 'task-body hidden-description'
+          }
+        >
           <h4>Description :</h4>
         </div>
       </CardContent>
