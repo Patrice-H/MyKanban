@@ -47,6 +47,7 @@ const Thumbnail = (props) => {
         setDashboardForm={setDashboardForm}
         setEditedTask={null}
         setInputEntry={null}
+        setIsCardExpanded={null}
       />
     </div>
   );
