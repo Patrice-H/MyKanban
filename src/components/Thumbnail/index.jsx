@@ -43,6 +43,7 @@ const Thumbnail = (props) => {
       <CustomizedMenu
         itemType="dashboard"
         item={props.dashboard}
+        isCardExpanded={false}
         deleteItem={deleteDashboard}
         setDashboardForm={setDashboardForm}
         setEditedTask={null}

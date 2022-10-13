@@ -15,6 +15,7 @@ const MuiCard = (props) => {
           <CustomizedMenu
             itemType="task"
             item={props.task}
+            isCardExpanded={isCardExpanded}
             deleteItem={props.deleteTask}
             setDashboardForm={null}
             setEditedTask={props.setEditedTask}
