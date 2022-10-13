@@ -18,6 +18,9 @@ const MuiCard = (props) => {
             setInputEntry={props.setInputEntry}
           />
         </div>
+        <div className="task-body hidden-description">
+          <h4>Description :</h4>
+        </div>
       </CardContent>
     </Card>
   );

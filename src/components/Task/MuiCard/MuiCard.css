@@ -43,3 +43,10 @@ h3.task-title {
 .task-item-btns span:hover {
   color: #d32f2f;
 }
+.task-body {
+  width: 100%;
+  height: 100px;
+}
+.hidden-description {
+  display: none;
+}
