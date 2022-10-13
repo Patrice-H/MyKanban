@@ -71,6 +71,7 @@ export default function CustomizedMenu(props) {
   };
 
   const openCard = () => {
+    handleClose();
     if (props.itemType === 'dashboard') {
       navigate(`/dashboard/${props.item.id}`);
     }
