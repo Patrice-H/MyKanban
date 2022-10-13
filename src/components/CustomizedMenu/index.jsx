@@ -62,6 +62,7 @@ export default function CustomizedMenu(props) {
   const setDashboardForm = props.setDashboardForm;
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
+  const setIsCardExpanded = props.setIsCardExpanded;
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -75,6 +76,8 @@ export default function CustomizedMenu(props) {
     handleClose();
     if (props.itemType === 'dashboard') {
       navigate(`/dashboard/${props.item.id}`);
+    } else {
+      setIsCardExpanded(true);
     }
   };
 
