@@ -6,6 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ExpandIcon from '@mui/icons-material/Expand';
+import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -64,6 +65,7 @@ export default function CustomizedMenu(props) {
   const setInputEntry = props.setInputEntry;
   const setIsCardExpanded = props.setIsCardExpanded;
   const open = Boolean(anchorEl);
+  const textMenu = props.isCardExpanded ? 'Fermer' : 'Ouvrir';
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,6 +80,19 @@ export default function CustomizedMenu(props) {
       navigate(`/dashboard/${props.item.id}`);
     } else {
       setIsCardExpanded(true);
+    }
+  };
+
+  const closeCard = () => {
+    handleClose();
+    setIsCardExpanded(false);
+  };
+
+  const toggleCard = () => {
+    if (props.isCardExpanded) {
+      closeCard();
+    } else {
+      openCard();
     }
   };
 
@@ -157,9 +172,15 @@ export default function CustomizedMenu(props) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={openCard} disableRipple>
-          {props.itemType === 'dashboard' ? <OpenInNewIcon /> : <ExpandIcon />}
-          Ouvrir
+        <MenuItem onClick={toggleCard} disableRipple>
+          {props.itemType === 'dashboard' ? (
+            <OpenInNewIcon />
+          ) : props.isCardExpanded ? (
+            <CloseIcon />
+          ) : (
+            <ExpandIcon />
+          )}
+          {textMenu}
         </MenuItem>
         <MenuItem onClick={updateCard} disableRipple>
           <EditIcon />
