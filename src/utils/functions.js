@@ -67,12 +67,12 @@ export const getInitialDashboard = (list, initialData) => {
 
 export const closeDashboardModal = () => {
   const modal = document.getElementById('dashboard-modal');
-  modal.classList.add('hidden');
+  modal.classList.add('hidden-modal');
 };
 
 export const openDashboardModal = () => {
   const modal = document.getElementById('dashboard-modal');
-  modal.classList.remove('hidden');
+  modal.classList.remove('hidden-modal');
 };
 
 export const convertColor = (rgbaColor) => {
