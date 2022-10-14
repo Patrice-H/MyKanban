@@ -13,6 +13,7 @@ import Header from '../../components/Header';
 import Column from '../../components/Column';
 import Loader from '../../components/Loader';
 import { getCategoryId, getInitialDashboard } from '../../utils/functions';
+import './Dashboard.css';
 
 const Dashboard = (props) => {
   const setDashboard = props.setDashboard;
