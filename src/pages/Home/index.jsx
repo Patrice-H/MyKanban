@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import Thumbnail from '../../components/Thumbnail';
 import { getDashboardsList } from '../../services/dbManager';
 import DashboardModal from '../../components/DashboardModal';
-import { openDashboardModal } from '../../utils/functions';
+import { openModal } from '../../utils/functions';
 import { initialData } from '../../data/initialData';
 import './Home.css';
 
@@ -56,7 +56,7 @@ const Home = (props) => {
         onClick={(e) => {
           e.preventDefault();
           setModalType('adding');
-          openDashboardModal();
+          openModal('dashboard-modal');
         }}
       >
         Nouveau tableau

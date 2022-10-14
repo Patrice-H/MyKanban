@@ -65,13 +65,13 @@ export const getInitialDashboard = (list, initialData) => {
   };
 };
 
-export const closeDashboardModal = () => {
-  const modal = document.getElementById('dashboard-modal');
+export const closeModal = (modalId) => {
+  const modal = document.getElementById(modalId);
   modal.classList.add('hidden-modal');
 };
 
-export const openDashboardModal = () => {
-  const modal = document.getElementById('dashboard-modal');
+export const openModal = (modalId) => {
+  const modal = document.getElementById(modalId);
   modal.classList.remove('hidden-modal');
 };
 

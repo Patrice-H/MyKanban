@@ -7,7 +7,7 @@ import {
   updateCategory,
   updateDashboard,
 } from '../../services/dbManager';
-import { closeDashboardModal } from '../../utils/functions';
+import { closeModal } from '../../utils/functions';
 import ColorPicker from '../ColorPicker';
 import './DashboardModal.css';
 
@@ -115,7 +115,7 @@ const DashboardModal = (props) => {
         dashboards: [],
         isDashboardsLoaded: false,
       });
-      closeDashboardModal();
+      closeModal('dashboard-modal');
       setModalType();
     }
   };
@@ -268,7 +268,7 @@ const DashboardModal = (props) => {
                   number: '',
                 },
               });
-              closeDashboardModal();
+              closeModal('dashboard-modal');
               setModalType();
             }}
           >

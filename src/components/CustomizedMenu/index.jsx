@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { openDashboardModal } from '../../utils/functions';
+import { openModal } from '../../utils/functions';
 import { getCategoriesList } from '../../services/dbManager';
 
 const StyledMenu = styled((props) => (
@@ -144,7 +144,7 @@ export default function CustomizedMenu(props) {
           backgrounds,
         },
       });
-      openDashboardModal();
+      openModal('dashboard-modal');
     } else {
       setEditedTask(props.item.id);
       setInputEntry(props.item.title);
