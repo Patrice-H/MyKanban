@@ -242,7 +242,7 @@ const DashboardModal = (props) => {
               />
             </div>
           ))}
-        <div id="dashboard-modal-btns">
+        <div className="modal-btns">
           <Button
             variant="contained"
             onClick={(e) => {

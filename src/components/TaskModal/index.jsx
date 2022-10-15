@@ -6,7 +6,7 @@ const TaskModal = () => {
   return (
     <div className="modal hidden-modal" id="task-modal">
       <div id="task-modal-content">
-        <div id="task-modal-btns">
+        <div className="modal-btns">
           <Button variant="contained">Ajouter</Button>
           <Button
             variant="contained"

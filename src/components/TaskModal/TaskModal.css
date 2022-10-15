@@ -9,9 +9,3 @@
   gap: 20px;
   padding: 20px 125px;
 }
-#task-modal-btns {
-  width: 310px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}

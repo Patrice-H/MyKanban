@@ -18,3 +18,9 @@ body {
 .hidden-modal {
   display: none;
 }
+.modal-btns {
+  width: 310px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}

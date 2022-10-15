@@ -6,12 +6,6 @@
   display: flex;
   gap: 10px;
 }
-#dashboard-modal-btns {
-  width: 310px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
 #dashboard-modal-content {
   width: 310px;
   max-height: 610px;
