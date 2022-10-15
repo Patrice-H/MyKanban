@@ -14,6 +14,7 @@ import Column from '../../components/Column';
 import Loader from '../../components/Loader';
 import { getCategoryId, getInitialDashboard } from '../../utils/functions';
 import './Dashboard.css';
+import TaskModal from '../../components/TaskModal';
 
 const Dashboard = (props) => {
   const setDashboard = props.setDashboard;
@@ -238,6 +239,7 @@ const Dashboard = (props) => {
           <Loader />
         </div>
       )}
+      <TaskModal />
     </>
   );
 };
