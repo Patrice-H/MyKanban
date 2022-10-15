@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { closeModal } from '../../utils/functions';
 import './TaskModal.css';
 
 const TaskModal = () => {
@@ -7,7 +8,14 @@ const TaskModal = () => {
       <div id="task-modal-content">
         <div id="task-modal-btns">
           <Button variant="contained">Ajouter</Button>
-          <Button variant="contained" color="error">
+          <Button
+            variant="contained"
+            color="error"
+            onClick={(e) => {
+              e.preventDefault();
+              closeModal('task-modal');
+            }}
+          >
             Annuler
           </Button>
         </div>
