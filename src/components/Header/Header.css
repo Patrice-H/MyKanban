@@ -8,6 +8,11 @@
   top: 20px;
   left: 20px;
 }
+#open-task-modal-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 .task-form {
   display: flex;
   justify-content: center;
