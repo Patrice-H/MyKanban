@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createTask, updateTask } from '../../services/dbManager';
-import { getCategoryId } from '../../utils/functions';
+import { getCategoryId, openModal } from '../../utils/functions';
+import { Button } from '@mui/material';
 import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
 import MuiTextField from './MuiTextField';
@@ -110,6 +111,16 @@ const Header = (props) => {
       <Link to="/" id="home-link">
         retour aux tableaux de bord
       </Link>
+      <Button
+        variant="contained"
+        id="open-task-modal-btn"
+        onClick={(e) => {
+          e.preventDefault();
+          openModal('task-modal');
+        }}
+      >
+        Nouvelle tâche
+      </Button>
       <MuiHeading1 dashboardId={props.dashboardId} />
       <div className="task-form">
         <MuiTextField
