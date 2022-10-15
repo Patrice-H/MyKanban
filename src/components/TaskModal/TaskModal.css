@@ -1,0 +1,17 @@
+#task-modal-content {
+  width: 310px;
+  max-height: 610px;
+  background-color: white;
+  margin: 100px auto;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 125px;
+}
+#task-modal-btns {
+  width: 310px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
