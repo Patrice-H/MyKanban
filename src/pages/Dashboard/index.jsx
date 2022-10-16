@@ -23,6 +23,14 @@ const Dashboard = (props) => {
   const [inputEntry, setInputEntry] = useState('');
   const [message, setMessage] = useState();
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [taskForm, setTaskForm] = useState({
+    id: '',
+    inputEntry: {
+      title: '',
+      description: '',
+    },
+    inputError: false,
+  });
   const param = useParams();
   const dashboardId = parseInt(param.dashboardId);
 
@@ -239,7 +247,7 @@ const Dashboard = (props) => {
           <Loader />
         </div>
       )}
-      <TaskModal />
+      <TaskModal taskForm={taskForm} setTaskForm={setTaskForm} />
     </>
   );
 };
