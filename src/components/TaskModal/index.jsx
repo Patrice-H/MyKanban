@@ -2,16 +2,48 @@ import { Button, TextField } from '@mui/material';
 import { closeModal } from '../../utils/functions';
 import './TaskModal.css';
 
-const TaskModal = () => {
+const TaskModal = (props) => {
+  const setTaskForm = props.setTaskForm;
+
   return (
     <div className="modal hidden-modal" id="task-modal">
       <div id="task-modal-content">
-        <TextField variant="outlined" label="Titre de la tâche" />
+        <TextField
+          id="task-title-input"
+          variant="outlined"
+          required
+          label="Titre de la tâche"
+          value={props.taskForm.inputEntry.title}
+          onChange={(e) => {
+            let entry = {
+              title: e.target.value,
+              description: props.taskForm.inputEntry.description,
+            };
+            setTaskForm({
+              ...props.taskForm,
+              inputEntry: entry,
+              inputError: false,
+            });
+          }}
+          error={props.taskForm.inputError}
+          helperText={props.taskForm.inputError ? 'Titre requis' : null}
+        />
         <TextField
           variant="outlined"
           label="Description"
           multiline
           maxRows={15}
+          value={props.taskForm.inputEntry.description}
+          onChange={(e) => {
+            let entry = {
+              title: props.taskForm.inputEntry.title,
+              description: e.target.value,
+            };
+            setTaskForm({
+              ...props.taskForm,
+              inputEntry: entry,
+            });
+          }}
         />
         <div className="modal-btns">
           <Button variant="contained">Ajouter</Button>
