@@ -5,6 +5,16 @@ import './TaskModal.css';
 const TaskModal = (props) => {
   const setTaskForm = props.setTaskForm;
 
+  const saveTask = () => {
+    let taskTitle = document.getElementById('task-title-input').value;
+    if (taskTitle === '') {
+      setTaskForm({
+        ...props.taskForm,
+        inputError: true,
+      });
+    }
+  };
+
   return (
     <div className="modal hidden-modal" id="task-modal">
       <div id="task-modal-content">
@@ -46,7 +56,15 @@ const TaskModal = (props) => {
           }}
         />
         <div className="modal-btns">
-          <Button variant="contained">Ajouter</Button>
+          <Button
+            variant="contained"
+            onClick={(e) => {
+              e.preventDefault();
+              saveTask();
+            }}
+          >
+            Ajouter
+          </Button>
           <Button
             variant="contained"
             color="error"
