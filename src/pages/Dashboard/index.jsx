@@ -228,6 +228,7 @@ const Dashboard = (props) => {
                       setInputEntry={setInputEntry}
                       setMessage={setMessage}
                       setIsSnackbarOpen={setIsSnackbarOpen}
+                      setTaskForm={setTaskForm}
                     />
                   );
                 })}

@@ -65,6 +65,7 @@ const Task = (props) => {
             setEditedTask={setEditedTask}
             setInputEntry={setInputEntry}
             deleteTask={deleteTask}
+            setTaskForm={props.setTaskForm}
           />
         </div>
       )}

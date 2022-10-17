@@ -21,6 +21,7 @@ const MuiCard = (props) => {
             setEditedTask={props.setEditedTask}
             setInputEntry={props.setInputEntry}
             setIsCardExpanded={setIsCardExpanded}
+            setTaskForm={props.setTaskForm}
           />
         </div>
         <div

@@ -37,6 +37,7 @@ const Column = (props) => {
                   setInputEntry={props.setInputEntry}
                   setMessage={props.setMessage}
                   setIsSnackbarOpen={props.setIsSnackbarOpen}
+                  setTaskForm={props.setTaskForm}
                 />
               ))}
             {provided.placeholder}
