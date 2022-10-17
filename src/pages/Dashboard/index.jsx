@@ -17,8 +17,6 @@ import './Dashboard.css';
 import TaskModal from '../../components/TaskModal';
 
 const Dashboard = (props) => {
-  const setDashboard = props.setDashboard;
-  const setDbData = props.setDbData;
   const [editedTask, setEditedTask] = useState();
   const [inputEntry, setInputEntry] = useState('');
   const [message, setMessage] = useState();
@@ -31,6 +29,9 @@ const Dashboard = (props) => {
     },
     inputError: false,
   });
+  const setDashboard = props.setDashboard;
+  const setDbData = props.setDbData;
+  const setModalType = props.setModalType;
   const param = useParams();
   const dashboardId = parseInt(param.dashboardId);
 
@@ -223,12 +224,14 @@ const Dashboard = (props) => {
                       column={column}
                       tasks={tasks}
                       categories={props.dbData.categories}
+                      modalType={props.modalType}
                       setDashboard={setDashboard}
                       setEditedTask={setEditedTask}
                       setInputEntry={setInputEntry}
                       setMessage={setMessage}
                       setIsSnackbarOpen={setIsSnackbarOpen}
                       setTaskForm={setTaskForm}
+                      setModalType={setModalType}
                     />
                   );
                 })}

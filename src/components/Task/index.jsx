@@ -62,10 +62,12 @@ const Task = (props) => {
         >
           <MuiCard
             task={props.task}
+            modalType={props.modalType}
             setEditedTask={setEditedTask}
             setInputEntry={setInputEntry}
             deleteTask={deleteTask}
             setTaskForm={props.setTaskForm}
+            setModalType={props.setModalType}
           />
         </div>
       )}

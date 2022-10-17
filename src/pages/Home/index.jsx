@@ -27,7 +27,7 @@ const Home = (props) => {
       backgrounds: [],
     },
   });
-  const [modalType, setModalType] = useState();
+  const setModalType = props.setModalType;
   const setDashboard = props.setDashboard;
   const setDbData = props.setDbData;
 
@@ -77,7 +77,7 @@ const Home = (props) => {
       <DashboardModal
         displayController={displayController}
         dashboardForm={dashboardForm}
-        modalType={modalType}
+        modalType={props.modalType}
         setDisplayController={setDisplayController}
         setDashboardForm={setDashboardForm}
         setModalType={setModalType}

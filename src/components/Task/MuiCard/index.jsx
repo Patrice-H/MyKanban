@@ -16,12 +16,14 @@ const MuiCard = (props) => {
             itemType="task"
             item={props.task}
             isCardExpanded={isCardExpanded}
+            modalType={props.modalType}
             deleteItem={props.deleteTask}
             setDashboardForm={null}
             setEditedTask={props.setEditedTask}
             setInputEntry={props.setInputEntry}
             setIsCardExpanded={setIsCardExpanded}
             setTaskForm={props.setTaskForm}
+            setModalType={props.setModalType}
           />
         </div>
         <div
