@@ -69,6 +69,7 @@ const Home = (props) => {
               key={`thumbnail-${dashboard.id}`}
               dashboard={dashboard}
               setDisplayController={setDisplayController}
+              setModalType={setModalType}
               setDashboardForm={setDashboardForm}
             />
           ))}

@@ -45,6 +45,7 @@ const Thumbnail = (props) => {
         item={props.dashboard}
         isCardExpanded={false}
         deleteItem={deleteDashboard}
+        setModalType={props.setModalType}
         setDashboardForm={setDashboardForm}
         setEditedTask={null}
         setInputEntry={null}
