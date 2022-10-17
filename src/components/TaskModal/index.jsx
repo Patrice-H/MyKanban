@@ -1,18 +1,81 @@
 import { Button, TextField } from '@mui/material';
+import { createTask } from '../../services/dbManager';
 import { closeModal } from '../../utils/functions';
 import './TaskModal.css';
 
 const TaskModal = (props) => {
   const setTaskForm = props.setTaskForm;
   const setModalType = props.setModalType;
+  const setDashboard = props.setDashboard;
+  const setMessage = props.setMessage;
+  const setIsSnackbarOpen = props.setIsSnackbarOpen;
 
-  const saveTask = () => {
+  const saveTask = async () => {
+    let newDashboard;
+    let formError = false;
     let taskTitle = document.getElementById('task-title-input').value;
     if (taskTitle === '') {
       setTaskForm({
         ...props.taskForm,
         inputError: true,
       });
+    }
+
+    if (formError) {
+      return;
+    } else {
+      if (props.modalType === 'adding') {
+        let lastId;
+        const taskOrder =
+          props.dashboard.columns['column-1'].taskIds.length + 1;
+        await createTask(
+          taskTitle,
+          taskOrder,
+          props.categories[0].id,
+          props.dashboardId
+        ).then((data) => {
+          lastId = data.data.id;
+          setMessage(data.message);
+          setIsSnackbarOpen(true);
+        });
+
+        const newTaskId = 'task-' + lastId;
+        const newTasksList = {
+          ...props.dashboard.tasks,
+          [newTaskId]: {
+            id: newTaskId,
+            title: taskTitle,
+          },
+        };
+        const newTaskListIds = Array.from(
+          props.dashboard.columns['column-1'].taskIds
+        );
+        newTaskListIds.splice(lastId - 1, 0, newTaskId);
+        const newColumns = {
+          ...props.dashboard.columns,
+          'column-1': {
+            ...props.dashboard.columns['column-1'],
+            taskIds: newTaskListIds,
+          },
+        };
+        newDashboard = {
+          ...props.dashboard,
+          tasks: newTasksList,
+          columns: newColumns,
+        };
+
+        let entry = {
+          title: '',
+          description: '',
+        };
+        setTaskForm({
+          ...props.taskForm,
+          inputEntry: entry,
+          inputError: false,
+        });
+        setDashboard(newDashboard);
+        closeModal('task-modal');
+      }
     }
   };
 
