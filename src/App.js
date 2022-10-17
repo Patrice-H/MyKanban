@@ -8,13 +8,21 @@ import { initialData } from './data/initialData';
 const App = () => {
   const [dashboard, setDashboard] = useState(initialData);
   const [dbData, setDbData] = useState({ categories: [], tasks: [] });
+  const [modalType, setModalType] = useState();
 
   return (
     <Router>
       <Routes>
         <Route
           path="/"
-          element={<Home setDashboard={setDashboard} setDbData={setDbData} />}
+          element={
+            <Home
+              modalType={modalType}
+              setModalType={setModalType}
+              setDashboard={setDashboard}
+              setDbData={setDbData}
+            />
+          }
         ></Route>
         <Route
           path="/dashboard/:dashboardId"
@@ -22,8 +30,10 @@ const App = () => {
             <Dashboard
               dashboard={dashboard}
               dbData={dbData}
+              modalType={modalType}
               setDashboard={setDashboard}
               setDbData={setDbData}
+              setModalType={setModalType}
             />
           }
         ></Route>
