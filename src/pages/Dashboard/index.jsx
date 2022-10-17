@@ -251,7 +251,12 @@ const Dashboard = (props) => {
           <Loader />
         </div>
       )}
-      <TaskModal taskForm={taskForm} setTaskForm={setTaskForm} />
+      <TaskModal
+        taskForm={taskForm}
+        modalType={props.modalType}
+        setTaskForm={setTaskForm}
+        setModalType={setModalType}
+      />
     </>
   );
 };

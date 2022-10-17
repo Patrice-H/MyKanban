@@ -4,6 +4,7 @@ import './TaskModal.css';
 
 const TaskModal = (props) => {
   const setTaskForm = props.setTaskForm;
+  const setModalType = props.setModalType;
 
   const saveTask = () => {
     let taskTitle = document.getElementById('task-title-input').value;
@@ -63,7 +64,7 @@ const TaskModal = (props) => {
               saveTask();
             }}
           >
-            Ajouter
+            {props.modalType === 'adding' ? 'ajouter' : 'mettre à jour'}
           </Button>
           <Button
             variant="contained"
@@ -80,6 +81,7 @@ const TaskModal = (props) => {
                 inputError: false,
               });
               closeModal('task-modal');
+              setModalType();
             }}
           >
             Annuler
