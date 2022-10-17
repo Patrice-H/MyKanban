@@ -64,6 +64,8 @@ export default function CustomizedMenu(props) {
   const setEditedTask = props.setEditedTask;
   const setInputEntry = props.setInputEntry;
   const setIsCardExpanded = props.setIsCardExpanded;
+  const setModalType = props.setModalType;
+  const setTaskForm = props.setTaskForm;
   const open = Boolean(anchorEl);
   const textMenu = props.isCardExpanded ? 'Fermer' : 'Ouvrir';
 
@@ -111,6 +113,7 @@ export default function CustomizedMenu(props) {
 
   const updateCard = async () => {
     handleClose();
+    setModalType('updating');
     if (props.itemType === 'dashboard') {
       let columnsIds = [];
       let inputFields = [];
@@ -148,6 +151,17 @@ export default function CustomizedMenu(props) {
     } else {
       setEditedTask(props.item.id);
       setInputEntry(props.item.title);
+
+      setTaskForm({
+        id: props.item.id,
+        inputEntry: {
+          title: props.item.title,
+          description: '',
+          //description: props.item.description,
+        },
+        inputError: false,
+      });
+      openModal('task-modal');
     }
   };
 
