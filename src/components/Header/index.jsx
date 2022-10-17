@@ -15,6 +15,7 @@ const Header = (props) => {
   const setInputEntry = props.setInputEntry;
   const setMessage = props.setMessage;
   const setIsSnackbarOpen = props.setIsSnackbarOpen;
+  const setModalType = props.setModalType;
 
   const doTraitment = async (action, taskId) => {
     const taskTitle = document.getElementById('input-field').value;
@@ -117,6 +118,7 @@ const Header = (props) => {
         onClick={(e) => {
           e.preventDefault();
           openModal('task-modal');
+          setModalType('adding');
         }}
       >
         Nouvelle tâche

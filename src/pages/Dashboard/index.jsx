@@ -206,6 +206,7 @@ const Dashboard = (props) => {
         setInputEntry={setInputEntry}
         setMessage={setMessage}
         setIsSnackbarOpen={setIsSnackbarOpen}
+        setModalType={setModalType}
       />
       {props.dbData.categories.length > 0 ? (
         <>
@@ -254,8 +255,16 @@ const Dashboard = (props) => {
       <TaskModal
         taskForm={taskForm}
         modalType={props.modalType}
+        dashboard={props.dashboard}
+        dashboardId={dashboardId}
+        categories={props.dbData.categories}
         setTaskForm={setTaskForm}
         setModalType={setModalType}
+        setDashboard={setDashboard}
+        setMessage={setMessage}
+        setIsSnackbarOpen={setIsSnackbarOpen}
+        setEditedTask={setEditedTask}
+        setInputEntry={setInputEntry}
       />
     </>
   );
