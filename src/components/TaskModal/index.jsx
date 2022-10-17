@@ -70,6 +70,15 @@ const TaskModal = (props) => {
             color="error"
             onClick={(e) => {
               e.preventDefault();
+              let entry = {
+                title: '',
+                description: '',
+              };
+              setTaskForm({
+                ...props.taskForm,
+                inputEntry: entry,
+                inputError: false,
+              });
               closeModal('task-modal');
             }}
           >
