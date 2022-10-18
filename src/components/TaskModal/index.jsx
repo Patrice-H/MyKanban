@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material';
-import { createTask } from '../../services/dbManager';
-import { closeModal } from '../../utils/functions';
+import { createTask, updateTask } from '../../services/dbManager';
+import { closeModal, getCategoryId } from '../../utils/functions';
 import './TaskModal.css';
 
 const TaskModal = (props) => {
@@ -63,19 +63,54 @@ const TaskModal = (props) => {
           tasks: newTasksList,
           columns: newColumns,
         };
-
-        let entry = {
-          title: '',
-          description: '',
-        };
-        setTaskForm({
-          ...props.taskForm,
-          inputEntry: entry,
-          inputError: false,
-        });
-        setDashboard(newDashboard);
-        closeModal('task-modal');
       }
+      if (props.modalType === 'updating') {
+        let columnName;
+        const columns = Object.getOwnPropertyNames(props.dashboard.columns);
+        columns.forEach((column) => {
+          if (
+            props.dashboard.columns[column].taskIds.includes(props.taskForm.id)
+          ) {
+            columnName = column;
+          }
+        });
+        const id = parseInt(props.taskForm.id.split('task-')[1]);
+        const title = props.taskForm.inputEntry.title;
+        const order =
+          props.dashboard.columns[columnName].taskIds.indexOf(
+            props.taskForm.id
+          ) + 1;
+        const categoryId = getCategoryId(columnName, props.categories);
+        await updateTask(id, title, order, categoryId, props.dashboardId).then(
+          (data) => {
+            setMessage(data.message);
+            setIsSnackbarOpen(true);
+          }
+        );
+
+        const newTasksList = {
+          ...props.dashboard.tasks,
+          [props.taskForm.id]: {
+            id: props.taskForm.id,
+            title,
+          },
+        };
+        newDashboard = {
+          ...props.dashboard,
+          tasks: newTasksList,
+        };
+      }
+      let entry = {
+        title: '',
+        description: '',
+      };
+      setTaskForm({
+        ...props.taskForm,
+        inputEntry: entry,
+        inputError: false,
+      });
+      setDashboard(newDashboard);
+      closeModal('task-modal');
     }
   };
 
