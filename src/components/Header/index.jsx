@@ -124,27 +124,6 @@ const Header = (props) => {
         Nouvelle tâche
       </Button>
       <MuiHeading1 dashboardId={props.dashboardId} />
-      <div className="task-form">
-        <MuiTextField
-          setInputEntry={setInputEntry}
-          setInputError={setInputError}
-          inputValue={props.inputEntry}
-          inputError={inputError}
-          editedTask={props.editedTask}
-        />
-        <MuiButton
-          doTraitment={doTraitment}
-          editedTask={props.editedTask}
-          label={props.editedTask === undefined ? 'Ajouter' : 'Modifier'}
-        />
-        {props.editedTask === undefined ? null : (
-          <MuiButton
-            doTraitment={doTraitment}
-            editedTask={props.editedTask}
-            label="Annuler"
-          />
-        )}
-      </div>
     </section>
   );
 };
