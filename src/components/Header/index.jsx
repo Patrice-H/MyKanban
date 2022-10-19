@@ -1,20 +1,10 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { createTask, updateTask } from '../../services/dbManager';
-import { getCategoryId, openModal } from '../../utils/functions';
+import { openModal } from '../../utils/functions';
 import { Button } from '@mui/material';
-import MuiButton from './MuiButton';
 import MuiHeading1 from './MuiHeading1';
-import MuiTextField from './MuiTextField';
 import './Header.css';
 
 const Header = (props) => {
-  const [inputError, setInputError] = useState(false);
-  const setDashboard = props.setDashboard;
-  const setEditedTask = props.setEditedTask;
-  const setInputEntry = props.setInputEntry;
-  const setMessage = props.setMessage;
-  const setIsSnackbarOpen = props.setIsSnackbarOpen;
   const setModalType = props.setModalType;
 
   return (
