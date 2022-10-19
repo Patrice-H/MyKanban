@@ -29,13 +29,11 @@ const Column = (props) => {
                   key={task.id}
                   dashboard={props.dashboard}
                   setDashboard={props.setDashboard}
-                  setEditedTask={props.setEditedTask}
                   column={props.column}
                   categories={props.categories}
                   task={task}
                   index={index}
                   modalType={props.modalType}
-                  setInputEntry={props.setInputEntry}
                   setMessage={props.setMessage}
                   setIsSnackbarOpen={props.setIsSnackbarOpen}
                   setTaskForm={props.setTaskForm}

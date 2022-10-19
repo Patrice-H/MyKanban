@@ -61,8 +61,6 @@ export default function CustomizedMenu(props) {
   const navigate = useNavigate();
   const deleteItem = props.deleteItem;
   const setDashboardForm = props.setDashboardForm;
-  const setEditedTask = props.setEditedTask;
-  const setInputEntry = props.setInputEntry;
   const setIsCardExpanded = props.setIsCardExpanded;
   const setModalType = props.setModalType;
   const setTaskForm = props.setTaskForm;
@@ -149,9 +147,6 @@ export default function CustomizedMenu(props) {
       });
       openModal('dashboard-modal');
     } else {
-      setEditedTask(props.item.id);
-      setInputEntry(props.item.title);
-
       setTaskForm({
         id: props.item.id,
         inputEntry: {

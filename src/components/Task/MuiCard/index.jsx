@@ -19,8 +19,6 @@ const MuiCard = (props) => {
             modalType={props.modalType}
             deleteItem={props.deleteTask}
             setDashboardForm={null}
-            setEditedTask={props.setEditedTask}
-            setInputEntry={props.setInputEntry}
             setIsCardExpanded={setIsCardExpanded}
             setTaskForm={props.setTaskForm}
             setModalType={props.setModalType}

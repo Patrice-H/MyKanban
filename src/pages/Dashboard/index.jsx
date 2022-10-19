@@ -17,8 +17,6 @@ import './Dashboard.css';
 import TaskModal from '../../components/TaskModal';
 
 const Dashboard = (props) => {
-  const [editedTask, setEditedTask] = useState();
-  const [inputEntry, setInputEntry] = useState('');
   const [message, setMessage] = useState();
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [taskForm, setTaskForm] = useState({
@@ -197,13 +195,9 @@ const Dashboard = (props) => {
       <Header
         dashboardId={dashboardId}
         dashboard={props.dashboard}
-        editedTask={editedTask}
-        inputEntry={inputEntry}
         message={message}
         categories={props.dbData.categories}
         setDashboard={setDashboard}
-        setEditedTask={setEditedTask}
-        setInputEntry={setInputEntry}
         setMessage={setMessage}
         setIsSnackbarOpen={setIsSnackbarOpen}
         setModalType={setModalType}
@@ -227,8 +221,6 @@ const Dashboard = (props) => {
                       categories={props.dbData.categories}
                       modalType={props.modalType}
                       setDashboard={setDashboard}
-                      setEditedTask={setEditedTask}
-                      setInputEntry={setInputEntry}
                       setMessage={setMessage}
                       setIsSnackbarOpen={setIsSnackbarOpen}
                       setTaskForm={setTaskForm}
@@ -263,8 +255,6 @@ const Dashboard = (props) => {
         setDashboard={setDashboard}
         setMessage={setMessage}
         setIsSnackbarOpen={setIsSnackbarOpen}
-        setEditedTask={setEditedTask}
-        setInputEntry={setInputEntry}
       />
     </>
   );
