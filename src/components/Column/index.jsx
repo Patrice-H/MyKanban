@@ -33,7 +33,6 @@ const Column = (props) => {
                   categories={props.categories}
                   task={task}
                   index={index}
-                  modalType={props.modalType}
                   setMessage={props.setMessage}
                   setIsSnackbarOpen={props.setIsSnackbarOpen}
                   setTaskForm={props.setTaskForm}

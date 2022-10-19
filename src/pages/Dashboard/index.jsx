@@ -219,7 +219,6 @@ const Dashboard = (props) => {
                       column={column}
                       tasks={tasks}
                       categories={props.dbData.categories}
-                      modalType={props.modalType}
                       setDashboard={setDashboard}
                       setMessage={setMessage}
                       setIsSnackbarOpen={setIsSnackbarOpen}
