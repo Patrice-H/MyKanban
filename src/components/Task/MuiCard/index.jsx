@@ -28,8 +28,8 @@ const MuiCard = (props) => {
             isCardExpanded ? 'task-body' : 'task-body hidden-description'
           }
         >
-          <h4>Description :</h4>
-          <p>{props.task.description}</p>
+          <h4 className="task-description">Description :</h4>
+          <p className="task-description">{props.task.description}</p>
         </div>
       </CardContent>
     </Card>

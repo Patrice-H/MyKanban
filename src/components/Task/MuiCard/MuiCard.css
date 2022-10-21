@@ -45,8 +45,10 @@ h3.task-title {
 }
 .task-body {
   width: 100%;
-  height: 100px;
 }
 .hidden-description {
   display: none;
+}
+.task-description {
+  margin: 10px 0;
 }
