@@ -87,12 +87,17 @@ const TaskModal = (props) => {
             props.taskForm.id
           ) + 1;
         const categoryId = getCategoryId(columnName, props.categories);
-        await updateTask(id, title, order, categoryId, props.dashboardId).then(
-          (data) => {
-            setMessage(data.message);
-            setIsSnackbarOpen(true);
-          }
-        );
+        await updateTask(
+          id,
+          title,
+          description,
+          order,
+          categoryId,
+          props.dashboardId
+        ).then((data) => {
+          setMessage(data.message);
+          setIsSnackbarOpen(true);
+        });
 
         const newTasksList = {
           ...props.dashboard.tasks,

@@ -36,12 +36,14 @@ export const createTask = async (
 export const updateTask = async (
   id,
   title,
+  description,
   order,
   category_id,
   dashboard_id
 ) => {
   const updatedTask = {
     title,
+    description,
     order,
     category_id,
     dashboard_id,
