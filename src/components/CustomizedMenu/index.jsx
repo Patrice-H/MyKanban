@@ -151,8 +151,7 @@ export default function CustomizedMenu(props) {
         id: props.item.id,
         inputEntry: {
           title: props.item.title,
-          description: '',
-          //description: props.item.description,
+          description: props.item.description,
         },
         inputError: false,
       });

@@ -14,6 +14,9 @@ const TaskModal = (props) => {
     let newDashboard;
     let formError = false;
     let taskTitle = document.getElementById('task-title-input').value;
+    let taskDescription = document.getElementById(
+      'task-description-input'
+    ).value;
     if (taskTitle === '') {
       setTaskForm({
         ...props.taskForm,
@@ -45,6 +48,7 @@ const TaskModal = (props) => {
           [newTaskId]: {
             id: newTaskId,
             title: taskTitle,
+            description: taskDescription,
           },
         };
         const newTaskListIds = Array.from(
@@ -76,6 +80,7 @@ const TaskModal = (props) => {
         });
         const id = parseInt(props.taskForm.id.split('task-')[1]);
         const title = props.taskForm.inputEntry.title;
+        const description = props.taskForm.inputEntry.description;
         const order =
           props.dashboard.columns[columnName].taskIds.indexOf(
             props.taskForm.id
@@ -93,6 +98,7 @@ const TaskModal = (props) => {
           [props.taskForm.id]: {
             id: props.taskForm.id,
             title,
+            description,
           },
         };
         newDashboard = {
@@ -138,6 +144,7 @@ const TaskModal = (props) => {
           helperText={props.taskForm.inputError ? 'Titre requis' : null}
         />
         <TextField
+          id="task-description-input"
           variant="outlined"
           label="Description"
           multiline
