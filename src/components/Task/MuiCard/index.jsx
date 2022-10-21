@@ -29,6 +29,7 @@ const MuiCard = (props) => {
           }
         >
           <h4>Description :</h4>
+          <p>{props.task.description}</p>
         </div>
       </CardContent>
     </Card>

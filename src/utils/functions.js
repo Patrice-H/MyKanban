@@ -7,6 +7,7 @@ const convertTasksList = (list) => {
       [`task-${task.id}`]: {
         id: `task-${task.id}`,
         title: task.title,
+        description: 'La description de la tâche...',
       },
     };
   });
