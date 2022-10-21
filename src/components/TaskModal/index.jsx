@@ -33,6 +33,7 @@ const TaskModal = (props) => {
           props.dashboard.columns['column-1'].taskIds.length + 1;
         await createTask(
           taskTitle,
+          taskDescription,
           taskOrder,
           props.categories[0].id,
           props.dashboardId

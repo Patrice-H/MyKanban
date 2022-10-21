@@ -6,9 +6,16 @@ export const getTasksList = async () => {
   });
 };
 
-export const createTask = async (title, order, category_id, dashboard_id) => {
+export const createTask = async (
+  title,
+  description,
+  order,
+  category_id,
+  dashboard_id
+) => {
   const newTask = {
     title,
+    description,
     order,
     category_id,
     dashboard_id,
