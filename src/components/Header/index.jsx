@@ -8,7 +8,7 @@ const Header = (props) => {
   const setModalType = props.setModalType;
 
   return (
-    <section className="header">
+    <section className="header" data-testid="header">
       <Link to="/" id="home-link">
         retour aux tableaux de bord
       </Link>

@@ -14,6 +14,7 @@ const MuiHeading1 = (props) => {
   return (
     <Typography
       variant="h1"
+      data-testid="header-title"
       sx={{
         fontSize: '36px',
         fontWeight: 'bold',
