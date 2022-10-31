@@ -131,6 +131,7 @@ const TaskModal = (props) => {
       <div id="task-modal-content">
         <TextField
           id="task-title-input"
+          data-testid="task-title-input"
           variant="outlined"
           required
           label="Titre de la tâche"
@@ -195,7 +196,7 @@ const TaskModal = (props) => {
               setModalType();
             }}
           >
-            Annuler
+            annuler
           </Button>
         </div>
       </div>
