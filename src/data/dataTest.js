@@ -1,21 +1,34 @@
+const dashboards = [
+  {
+    id: 1,
+    title: 'dashboard 1',
+  },
+  {
+    id: 2,
+    title: 'dashboard 2',
+  },
+];
 const categories = [
   {
     id: 3,
     title: 'column-test 1',
     order: 1,
     background_color: 'rgba(255, 0, 0, 0.25)',
+    dashboard_id: 1,
   },
   {
     id: 2,
     title: 'column-test 2',
     order: 2,
     background_color: 'rgba(255, 255, 0, 0.25)',
+    dashboard_id: 1,
   },
   {
     id: 1,
     title: 'column-test 3',
     order: 3,
     background_color: 'rgba(0, 255, 0, 0.25)',
+    dashboard_id: 1,
   },
 ];
 
@@ -26,6 +39,7 @@ const tasks = [
     description: 'description of task-test 1',
     order: 1,
     category_id: 1,
+    dashboard_id: 1,
   },
   {
     id: 2,
@@ -33,6 +47,7 @@ const tasks = [
     description: 'description of task-test 2',
     order: 2,
     category_id: 1,
+    dashboard_id: 1,
   },
   {
     id: 3,
@@ -40,10 +55,11 @@ const tasks = [
     description: 'description of task-test 3',
     order: 1,
     category_id: 2,
+    dashboard_id: 1,
   },
 ];
 
-export const dataSetTest = { categories, tasks };
+export const dataSetTest = { dashboards, categories, tasks };
 
 export const expectedDashboard = {
   tasks: {
