@@ -9,6 +9,7 @@ const Column = (props) => {
   return (
     <Paper
       className="column"
+      data-testid="column"
       style={{ backgroundColor: props.column.backgroundColor }}
     >
       <h2>{props.column.title}</h2>
