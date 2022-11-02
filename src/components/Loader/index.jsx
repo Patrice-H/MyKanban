@@ -1,5 +1,12 @@
 import './Loader.css';
 
+/**
+ * Loader component
+ *
+ * @component
+ * @description It returns a customized loader while data is loading.
+ * @returns {JSX} The React component.
+ */
 const Loader = () => {
   return (
     <div id="loader-container">
