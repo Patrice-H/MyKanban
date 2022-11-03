@@ -4,6 +4,14 @@ import { Button } from '@mui/material';
 import MuiHeading1 from './MuiHeading1';
 import './Header.css';
 
+/**
+ * Header component
+ *
+ * @description Component composed by a link to home page, the title of the dashboard, and a button to open the task modal
+ * @component
+ * @param {{dashboardId: number, dashboard: object, message: string, categories: [object], setDashboard: Function, setMessage: Function, setIsSnackbarOpen: Function, setModalType: Function}} props - Props component
+ * @returns {JSX} The component
+ */
 const Header = (props) => {
   const setModalType = props.setModalType;
 
