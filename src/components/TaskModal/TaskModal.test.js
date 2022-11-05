@@ -5,10 +5,10 @@ import TaskModal from '.';
 describe('Task modal tests suite', () => {
   // Integrity tests
   const taskForm = {
-    id: '',
+    id: 1,
     inputEntry: {
-      title: '',
-      description: '',
+      title: 'test',
+      description: 'test',
     },
     inputError: false,
   };
@@ -49,5 +49,14 @@ describe('Task modal tests suite', () => {
     render(<TaskModal taskForm={taskForm} modalType="adding" />);
     const addButton = screen.getByText('ajouter');
     expect(addButton).toBeInTheDocument();
+  });
+  it('Should render the pre-filled form', () => {
+    renderComponents();
+    const inputBlock = screen.getByTestId('task-title-input');
+    // eslint-disable-next-line testing-library/no-node-access
+    const inputField = inputBlock.lastChild.firstChild;
+    const textArea = screen.getByLabelText('Description');
+    expect(inputField.value).toBe('test');
+    expect(textArea.value).toBe('test');
   });
 });
