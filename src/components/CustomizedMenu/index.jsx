@@ -164,6 +164,7 @@ export default function CustomizedMenu(props) {
       <IconButton
         aria-label="more"
         id="long-button"
+        data-testid="long-button"
         aria-controls={open ? 'long-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
