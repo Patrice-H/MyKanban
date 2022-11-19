@@ -4,6 +4,13 @@ import CardContent from '@mui/material/CardContent';
 import CustomizedMenu from '../../CustomizedMenu';
 import './MuiCard.css';
 
+/**
+ * Material UI card component
+ *
+ * @component
+ * @description It returns a card with the title and the description of a task.
+ * @returns {JSX} The React component.
+ */
 const MuiCard = (props) => {
   const [isCardExpanded, setIsCardExpanded] = useState(false);
 
