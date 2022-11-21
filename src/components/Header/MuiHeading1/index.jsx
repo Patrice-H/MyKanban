@@ -2,6 +2,13 @@ import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import { getDashboard } from '../../../services/dbManager';
 
+/**
+ * Material UI heading component
+ *
+ * @component
+ * @description It returns the h1 header title.
+ * @returns {JSX} The React component.
+ */
 const MuiHeading1 = (props) => {
   const [dashboardTitle, setDashboardTitle] = useState();
   useEffect(() => {
