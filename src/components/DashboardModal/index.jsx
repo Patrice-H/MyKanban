@@ -163,6 +163,7 @@ const DashboardModal = (props) => {
       >
         <TextField
           id="dashboard-title-input"
+          data-testid="dashboard-title-input"
           required
           variant="outlined"
           label="Titre du tableau de bord"
@@ -184,6 +185,7 @@ const DashboardModal = (props) => {
           sx={{ width: '310px' }}
         />
         <TextField
+          data-testid="columns-number"
           variant="outlined"
           label="Nombre de colonnes"
           type="number"
