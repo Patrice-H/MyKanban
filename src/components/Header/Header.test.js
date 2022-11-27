@@ -1,13 +1,16 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import * as utilsFunction from '../../utils/functions';
 import Header from '.';
 
 describe('Header tests suite', () => {
+  const setModalType = jest.fn();
+  utilsFunction.openModal = jest.fn();
   const renderComponents = () => {
     render(
       <MemoryRouter>
-        <Header />
+        <Header setModalType={setModalType} />
       </MemoryRouter>
     );
   };
@@ -27,5 +30,13 @@ describe('Header tests suite', () => {
     renderComponents();
     const title = screen.getByTestId('header-title');
     expect(title).toBeInTheDocument();
+  });
+  // Integration test
+  it('Should open modal when the adding task button is clicked', () => {
+    renderComponents();
+    const button = screen.getByText('Nouvelle tâche');
+    fireEvent.click(button);
+    expect(utilsFunction.openModal).toHaveBeenCalled();
+    expect(setModalType).toHaveBeenCalled();
   });
 });
