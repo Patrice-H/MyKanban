@@ -11,11 +11,25 @@ import { closeModal } from '../../utils/functions';
 import ColorPicker from '../ColorPicker';
 import './DashboardModal.css';
 
+/**
+ * Dashboard modal component
+ *
+ * @component
+ * @description It allows saving or editing a dashboard
+ * @param {object} props The props component
+ * @returns {JSX} The React component.
+ */
 const DashboardModal = (props) => {
   const setDisplayController = props.setDisplayController;
   const setDashboardForm = props.setDashboardForm;
   const setModalType = props.setModalType;
 
+  /**
+   * Function to save dashboard form entries
+   *
+   * @async
+   * @description It takes the values from the form and saves them to the database.
+   */
   const saveDashboard = async () => {
     let dashboardId;
     let columnsTitle = [];
