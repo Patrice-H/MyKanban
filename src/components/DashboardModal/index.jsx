@@ -221,6 +221,7 @@ const DashboardModal = (props) => {
             <div key={`column-${column}`} className="columns-inputs">
               <TextField
                 id={`input-column-${column}`}
+                data-testid={`input-column-${column}`}
                 required
                 variant="outlined"
                 label={`Titre de la colonne ${column}`}
@@ -288,7 +289,7 @@ const DashboardModal = (props) => {
               setModalType();
             }}
           >
-            Annuler
+            annuler
           </Button>
         </div>
       </div>
