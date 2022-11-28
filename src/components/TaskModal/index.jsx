@@ -3,6 +3,14 @@ import { createTask, updateTask } from '../../services/dbManager';
 import { closeModal, getCategoryId } from '../../utils/functions';
 import './TaskModal.css';
 
+/**
+ * Task modal component
+ *
+ * @component
+ * @description It allows saving or editing a task
+ * @param {object} props The props component
+ * @returns {JSX} The React component.
+ */
 const TaskModal = (props) => {
   const setTaskForm = props.setTaskForm;
   const setModalType = props.setModalType;
@@ -10,6 +18,12 @@ const TaskModal = (props) => {
   const setMessage = props.setMessage;
   const setIsSnackbarOpen = props.setIsSnackbarOpen;
 
+  /**
+   * Function to save a task form entries
+   *
+   * @async
+   * @description It takes the values from the form and saves them to the database.
+   */
   const saveTask = async () => {
     let newDashboard;
     let formError = false;
