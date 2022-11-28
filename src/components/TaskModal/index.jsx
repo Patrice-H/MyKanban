@@ -22,6 +22,7 @@ const TaskModal = (props) => {
         ...props.taskForm,
         inputError: true,
       });
+      formError = true;
     }
 
     if (formError) {
