@@ -8,10 +8,25 @@ import {
 } from '../../services/dbManager';
 import './Thumbnail.css';
 
+/**
+ * Thumbnail component
+ *
+ * @component
+ * @description It renders a dashboard in thumbnail.
+ * @param {object} props The props component
+ * @returns The React component.
+ */
 const Thumbnail = (props) => {
   const setDisplayController = props.setDisplayController;
   const setDashboardForm = props.setDashboardForm;
 
+  /**
+   * Function to delete a dashboard
+   *
+   * @async
+   * @description Delete a dashboard, and all of its tasks and categories, from the database.
+   * @param {number} id The dashboard id
+   */
   const deleteDashboard = async (id) => {
     const tasks = await getTasksList().then((data) => {
       return data.data.filter((task) => task.dashboard_id === id);
