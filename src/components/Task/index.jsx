@@ -3,12 +3,24 @@ import { removeTask, updateTask } from '../../services/dbManager';
 import { getCategoryId } from '../../utils/functions';
 import MuiCard from './MuiCard';
 
+/**
+ * Task component
+ *
+ * @component
+ * @description It renders a task component with Material UI card.
+ * @returns A function that returns a div.
+ */
 const Task = (props) => {
   const setDashboard = props.setDashboard;
   const setMessage = props.setMessage;
   const setIsSnackbarOpen = props.setIsSnackbarOpen;
   const taskClass = 'task-item';
 
+  /**
+   * Function to delete a task
+   *
+   * @description It deletes a task from the database and the state of the application and update order of other tasks.
+   */
   const deleteTask = (taskId) => {
     const newTasksList = {
       ...props.dashboard.tasks,
