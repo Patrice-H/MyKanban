@@ -160,7 +160,7 @@ export default function CustomizedMenu(props) {
   };
 
   return (
-    <div className="dashboard-menu">
+    <div className="dashboard-menu" data-testid="customized-menu">
       <IconButton
         aria-label="more"
         id="long-button"
