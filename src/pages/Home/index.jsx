@@ -62,7 +62,7 @@ const Home = (props) => {
         Nouveau tableau
       </Button>
       <h1 className="main-title">Tableaux de bord</h1>
-      <div className="thumbnails-container">
+      <div className="thumbnails-container" data-testid="thumbnails-container">
         {displayController.dashboards.length > 0 &&
           displayController.dashboards.map((dashboard) => (
             <Thumbnail

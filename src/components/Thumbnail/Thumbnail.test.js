@@ -12,6 +12,7 @@ describe('Thumbnail tests suite', () => {
       </MemoryRouter>
     );
   };
+  // Component intregrity tests
   it('Should render the iframe and the right url', () => {
     renderComponents();
     const iframe = screen.getByTitle('dashboard-1');

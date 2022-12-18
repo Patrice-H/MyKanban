@@ -168,7 +168,11 @@ const DashboardModal = (props) => {
   }, [props.dashboardForm.columns.number]);
 
   return (
-    <div className="modal hidden-modal" id="dashboard-modal">
+    <div
+      className="modal hidden-modal"
+      id="dashboard-modal"
+      data-testid="dashboard-modal"
+    >
       <div
         id="dashboard-modal-content"
         className={
