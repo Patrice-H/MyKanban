@@ -1,12 +1,19 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Home from '.';
 
 describe('Home page tests suite', () => {
   const setDashboard = jest.fn();
   const setDbData = jest.fn();
+  const setModalType = jest.fn();
   const renderComponents = () => {
-    render(<Home setDashboard={setDashboard} setDbData={setDbData} />);
+    render(
+      <Home
+        setDashboard={setDashboard}
+        setDbData={setDbData}
+        setModalType={setModalType}
+      />
+    );
   };
   // Component intregrity tests
   it('Should render the button to open dashboard modal', () => {
@@ -28,5 +35,14 @@ describe('Home page tests suite', () => {
     renderComponents();
     const dashboardModal = screen.getByTestId('dashboard-modal');
     expect(dashboardModal).toBeInTheDocument();
+  });
+  // Integration tests
+  it('Should open dashboard modal when user click on new dashboard button', () => {
+    renderComponents();
+    const addDashboardBtn = screen.getByText('Nouveau tableau');
+    const dashboardModal = screen.getByTestId('dashboard-modal');
+    expect(dashboardModal.classList[1]).toBe('hidden-modal');
+    fireEvent.click(addDashboardBtn);
+    expect(dashboardModal.classList[1]).toBe(undefined);
   });
 });
