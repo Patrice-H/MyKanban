@@ -142,7 +142,11 @@ const TaskModal = (props) => {
   };
 
   return (
-    <div className="modal hidden-modal" id="task-modal">
+    <div
+      className="modal hidden-modal"
+      id="task-modal"
+      data-testid="task-modal"
+    >
       <div id="task-modal-content">
         <TextField
           id="task-title-input"
@@ -167,6 +171,7 @@ const TaskModal = (props) => {
         />
         <TextField
           id="task-description-input"
+          data-testid="task-description-input"
           variant="outlined"
           label="Description"
           multiline

@@ -1,13 +1,17 @@
+/* eslint-disable testing-library/no-node-access */
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { expectedDashboard, dataSetTest } from '../../data/dataTest';
 import TaskModal from '.';
 
 describe('Task modal tests suite', () => {
-  // Integrity tests
   const mockedSetTaskForm = jest.fn();
+  const setModalType = jest.fn();
+  const setMessage = jest.fn();
+  const setIsSnackbarOpen = jest.fn();
   const mockedTaskForm = {
-    id: 1,
+    id: 'task-1',
     inputEntry: {
       title: 'test',
       description: 'test',
@@ -17,12 +21,20 @@ describe('Task modal tests suite', () => {
   const renderComponents = (modalType) => {
     render(
       <TaskModal
+        dashboard={expectedDashboard}
+        categories={dataSetTest.categories}
         taskForm={mockedTaskForm}
         modalType={modalType}
         setTaskForm={mockedSetTaskForm}
+        setModalType={setModalType}
+        setMessage={setMessage}
+        setIsSnackbarOpen={setIsSnackbarOpen}
       />
     );
   };
+
+  // Component integrity tests
+
   it('Should render an input test field to entry task title', () => {
     renderComponents('updating');
     const input = screen.getByTestId('task-title-input');
@@ -61,13 +73,14 @@ describe('Task modal tests suite', () => {
   it('Should render the pre-filled form', () => {
     renderComponents('updating');
     const inputBlock = screen.getByTestId('task-title-input');
-    // eslint-disable-next-line testing-library/no-node-access
     const inputField = inputBlock.lastChild.firstChild;
     const textArea = screen.getByLabelText('Description');
     expect(inputField.value).toBe('test');
     expect(textArea.value).toBe('test');
   });
+
   // Integration tests
+
   it('Should render an error message when empty form is submited', () => {
     mockedTaskForm.inputEntry.title = '';
     mockedTaskForm.inputError = true;
@@ -76,5 +89,33 @@ describe('Task modal tests suite', () => {
     userEvent.click(addButton);
     const errorMessage = screen.getByText('Titre requis');
     expect(errorMessage).toBeInTheDocument();
+    mockedTaskForm.inputEntry.title = 'test';
+  });
+  it('Should close modal when user click on cancel button', () => {
+    renderComponents('updating');
+    const modal = screen.getByTestId('task-modal');
+    const cancelButton = screen.getByText('annuler');
+    userEvent.click(cancelButton);
+    expect(modal.classList[1]).toBe('hidden-modal');
+  });
+  it('Should update the value of title input when user change the value', () => {
+    renderComponents('updating');
+    const titleBlock = screen.getByTestId('task-title-input');
+    const titleInput = Array.from(
+      Array.from(titleBlock.children)[1].children
+    )[0];
+    userEvent.click(titleInput);
+    userEvent.type(titleInput, 'test-title');
+    expect(mockedSetTaskForm).toHaveBeenCalled();
+  });
+  it('Should update the value of description input when user change the value', () => {
+    renderComponents('updating');
+    const descriptionBlock = screen.getByTestId('task-description-input');
+    const descriptionInput = Array.from(
+      Array.from(descriptionBlock.children)[1].children
+    )[0];
+    userEvent.click(descriptionInput);
+    userEvent.type(descriptionInput, 'test-description');
+    expect(mockedSetTaskForm).toHaveBeenCalled();
   });
 });
