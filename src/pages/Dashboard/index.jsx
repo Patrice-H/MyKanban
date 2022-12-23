@@ -16,6 +16,13 @@ import { getCategoryId, getInitialDashboard } from '../../utils/functions';
 import './Dashboard.css';
 import TaskModal from '../../components/TaskModal';
 
+/**
+ * Dashboard page component
+ *
+ * @description The above code is a React component that is used to display a dashboard.
+ * @param {object} props The props component
+ * @returns {JSX} The React component.
+ */
 const Dashboard = (props) => {
   const [message, setMessage] = useState();
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
@@ -162,6 +169,12 @@ const Dashboard = (props) => {
     </>
   );
 
+  /**
+   * Function to get all data from a dashboard
+   *
+   * @async
+   * @description It get all the categories and tasks from the database and set them to the state.
+   */
   const getAllData = async () => {
     let categories, tasks;
     await getCategoriesList().then((data) => {
