@@ -7,6 +7,13 @@ import { openModal } from '../../utils/functions';
 import { initialData } from '../../data/initialData';
 import './Home.css';
 
+/**
+ * Home page component
+ *
+ * @description The above code is a React component that is used to display a all dashboards in thumbnails.
+ * @param {object} props The props component
+ * @returns {JSX} The React component.
+ */
 const Home = (props) => {
   const [displayController, setDisplayController] = useState({
     dashboards: [],
