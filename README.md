@@ -10,7 +10,7 @@ This project work with an API
 
 ### 1. Install the API
 
-- Fork the repository [here](https://github.com/Patrice-H/my-kamban-api)
+- Fork the repository [here](https://github.com/Patrice-H/my-kanban-api)
 - Follow the installation instructions in the README file
 
 ### 2. Install the application
